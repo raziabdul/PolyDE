@@ -1,31 +1,24 @@
 !-------------------------------------------------------------------------!
 ! FEMsettings.txt							  !
-!	- settings for Polyde						  !
-!	- structured to be modified by some sed scripts for more	  !
-!	  automatization.						  !
-!	- default values are in <  >					  !
-!	- scripts for entries are in [  ]					  !
+!	- settings of project for Polyde				  !
 !-------------------------------------------------------------------------!
 
 
-! Order of elements: 1 to 10 [femp]
+! Order of elements: 1 to 20
 POLYORDER = 1
 
-! Matrix storage format: <LCSR>  CSR  [femc]
+! Matrix storage format: <LCSR>  CSR
 CSRFORMAT = lcsr
 
 ! Maximum mesh size in meshing,  mostly specified: 
-! 1.0e-4   3.0e-4  4.0e-4  [femm]
+! 1.0e-4   3.0e-4  4.0e-4
 MAXMESHSIZE = 1.01
 
-!  minimum angle of triangles:  <26> [fesk]
+!  minimum angle of triangles:  <26>
 SKINNYLIMIT = 26       
 
-! Linear solvers:  <SSORCG>  QMR UMF PETSC PETEIG AINVCG [fels]
+! Linear solvers:  <SSORCG>  UMF PETSC 
 LINSOLVERTYPE = ssorcg
-
-! Is iteration history to be output ?   <no>  yes [femi]
-WRITE ITERATION = no 
 
 !--------------------------------------------------------------------------
 !  Parameters below rarely change
@@ -33,10 +26,7 @@ WRITE ITERATION = no
 ! Residual error for convergence / error for direct method: <1.0e-7> 
 LINSOLVER_ERROR = 1.0e-7
 
-
-SMOOTHING    =  LAPLACE
-
-! Physics to use:  TEWAVE    TMWAVE    HEATTR
+! Physics to use: See README.md
 PHYSICS_MODE =  HEATTR
 
 MAXNODES     =  50000
@@ -50,11 +40,6 @@ ADAPTION_ERROR = 1.0e-10
 
 ! Error estimator to use: FULLRESIDUAL   INTERIORRESIDUAL   BOUNDARYRESIDUAL
 ERROR_ESTIMATOR= FULLRESIDUAL
-!ERROR_ESTIMATOR= INTERIORRESIDUAL
-!ERROR_ESTIMATOR= BOUNDARYRESIDUAL
-
-! hp_adaptation algorithm:  MELENK HEUVELINE KEYPOINT
-!HP_ALGORITHM = MELENK
 
 !  ADAPTION STEPS
 ADAPT_STEPS = 5

@@ -1,0 +1,30 @@
+# Unit Material
+
+! Density
+rho = 1
+
+! Thermal Quantities
+!c_p        =   0.             ! specific heat capacity
+
+lam11       =   1         ! Thermal Conductivity x-Direction
+lam22       =   1         ! Thermal Conductivity y-Direction
+lam33       =   1         ! Thermal Conductivity z-Direction
+
+!Mechanical Quantities
+Young      =   1         ! Young's modulus E in Pascal
+nu         =   0.28           ! Poisson's ratio nu
+
+anisotropic =   0
+
+! Stiffness modulus in engineering notation:
+
+! Ref: 
+!C11        =   0.             ! stiffness matrix coefficient in N/m²
+!C12        =   0.             ! stiffness matrix coefficient in N/m²
+!C13        =   0.             ! stiffness matrix coefficient in N/m²
+!C22        =   0.             ! stiffness matrix coefficient in N/m²
+!C23        =   0.             ! stiffness matrix coefficient in N/m²
+!C33        =   0.             ! stiffness matrix coefficient in N/m²
+!C44        =   0.             ! stiffness matrix coefficient in N/m²
+!C55        =   0.             ! stiffness matrix coefficient in N/m²
+!C66        =   0.             ! stiffness matrix coefficient in N/m²

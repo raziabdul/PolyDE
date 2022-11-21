@@ -1,0 +1,38 @@
+!  Set pgplot display device and extents
+! Linux options: /XS	, /GIF /CPS
+ DISPLAYDEVICE = /XS                      
+ XMIN        =   0.000000000000000E+000
+ XMAX        =   0.000000000000000E+000
+ YMIN        =   0.000000000000000E+000
+ YMAX        =   0.000000000000000E+000
+ !-------------------------------------------------
+ !  open window with full field plot and structure
+ INFO        = NO
+ OPEN
+ AMIN        = -1.
+ AMAX        = 1.
+ PHI         = 0.
+ DRAWINGTYPE = FULLPLOT
+ NUMCOLORS   = -128
+ NUMLINES    = -25
+ LINECOLOR   = 000000000
+ FIELDTYPE   = T
+ FIELD
+ LINECOLOR   = 200200200
+ STRUCT
+ LINECOLOR   = 000000000
+ SCALE
+ LINECOLOR   = 250250250
+ MESH
+ INFO        = NO
+ !-------------------------------------------------
+ !  open window with full field plot and structure
+ !OPEN
+ STRUCT
+ SCALE
+ !MOUSE
+ LINECOLOR   = 255000000
+ LINEWIDTH   = 3
+ DIVISION    = 1000
+ OUTPUT      = YES
+ !LINEGRAPH

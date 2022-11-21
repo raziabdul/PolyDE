@@ -1,0 +1,88 @@
+!----------  2D ---------------------------------------
+!
+!   VERIFICATIONS
+
+! json
+!PROJECTPATH = /home/gaia/polyde_proj/verify/heatsquare/
+!
+PROJECTPATH = /home/gaia/polyde_proj/verify/heatsquare01/
+!PROJECTPATH = /home/gaia/polyde_proj/verify/heatcube01/
+!PROJECTPATH = /home/gaia/polyde_proj/verify/heatFichera01/
+
+!   PROJECTS
+!PROJECTPATH = /home/gaia/polyde_proj/airfoil_profile/
+!PROJECTPATH = /home/gaia/polyde_proj/arc/
+!PROJECTPATH = /home/gaia/polyde_proj/bend/
+!PROJECTPATH = /home/gaia/polyde_proj/DCmotor/
+!PROJECTPATH = /home/gaia/polyde_proj/circlebox/
+!PROJECTPATH = /home/gaia/polyde_proj/dirichlet01/
+!PROJECTPATH = /home/gaia/polyde_proj/einsauf3/
+!PROJECTPATH = /home/gaia/polyde_proj/einsaufdrei2um/
+!PROJECTPATH = /home/gaia/polyde_proj/etalon/
+!PROJECTPATH = /home/gaia/polyde_proj/flowsensor/
+!PROJECTPATH = /home/gaia/polyde_proj/flying_conductor/
+!PROJECTPATH = /home/gaia/polyde_proj/flywire/
+!PROJECTPATH = /home/gaia/polyde_proj/harjanne/
+!PROJECTPATH = /home/gaia/polyde_proj/heat01/
+!PROJECTPATH = /home/gaia/polyde_proj/heat02/
+!PROJECTPATH = /home/gaia/polyde_proj/heat03/
+!PROJECTPATH = /home/gaia/polyde_proj/heatsquare/
+!PROJECTPATH = /home/gaia/polyde_proj/helmholtz01/
+!PROJECTPATH = /home/gaia/polyde_proj/kasahara/
+!PROJECTPATH = /home/gaia/polyde_proj/l_shape/
+!PROJECTPATH = /home/gaia/polyde_proj/l_shape.exp/
+!PROJECTPATH = /home/gaia/polyde_proj/l_shape.mine/
+!PROJECTPATH = /home/gaia/polyde_proj/l_shape.org/
+!PROJECTPATH = /home/gaia/polyde_proj/muffler/
+!PROJECTPATH = /home/gaia/polyde_proj/neumann01/
+!PROJECTPATH = /home/gaia/polyde_proj/nora1/
+!PROJECTPATH = /home/gaia/polyde_proj/nora2/
+!PROJECTPATH = /home/gaia/polyde_proj/parallel_plates/
+!PROJECTPATH = /home/gaia/polyde_proj/peltier01/
+!PROJECTPATH = /home/gaia/polyde_proj/peltier02/
+!PROJECTPATH = /home/gaia/polyde_proj/pplates01/
+!PROJECTPATH = /home/gaia/polyde_proj/pplate_war/
+!PROJECTPATH = /home/gaia/polyde_proj/raman1/
+!PROJECTPATH = /home/gaia/polyde_proj/rectreso/
+!PROJECTPATH = /home/gaia/polyde_proj/simulat/
+!PROJECTPATH = /home/gaia/polyde_proj/sphere_cone/
+!PROJECTPATH = /home/gaia/polyde_proj/square.d/
+!PROJECTPATH = /home/gaia/polyde_proj/tang/fig42/
+!PROJECTPATH = /home/gaia/polyde_proj/tang/1.5dia/
+!PROJECTPATH = /home/gaia/polyde_proj/tang/3/
+!PROJECTPATH = /home/gaia/polyde_proj/trapezium/
+!PROJECTPATH = /home/gaia/polyde_proj/TOwaveguide/
+!PROJECTPATH = /home/gaia/polyde_proj/vuik01/
+!PROJECTPATH = /home/gaia/polyde_proj/wick01/
+
+
+!------------  3D ---------------------------------------------
+!PROJECTPATH = /home/gaia/polyde_proj3d/square_resonator/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cube01/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cube02/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cubeEmagResonator1/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cube.kevin/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cubeconv/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cubeheat/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cubeLaplace01b/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cubeLaplace02/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cubeTE01/
+!PROJECTPATH = /home/gaia/polyde_proj3d/comsol_bend/
+!PROJECTPATH = /home/gaia/polyde_proj3d/brick_112/
+!PROJECTPATH = /home/gaia/polyde_proj3d/cube5/
+!PROJECTPATH = /home/gaia/polyde_proj3d/fin01/
+!PROJECTPATH = /home/gaia/polyde_proj3d/ficheraHeat01/
+!PROJECTPATH = /home/gaia/polyde_proj3d/ficheraBenchmark1/
+!PROJECTPATH = /home/gaia/polyde_proj3d/fuse01/
+!PROJECTPATH = /home/gaia/polyde_proj3d/singularity02/
+!PROJECTPATH = /home/gaia/polyde_proj3d/teaizu01/
+!PROJECTPATH = /home/gaia/polyde_proj3d/temodule01/
+!PROJECTPATH = /home/gaia/polyde_proj3d/THERMOLEG/
+!PROJECTPATH = /home/gaia/polyde_proj3d/thermoleg01/
+!PROJECTPATH = /home/gaia/polyde_proj3d/Tutorial/
+
+!------------  tutorial ---------------------------------------------
+!PROJECTPATH = /home/gaia/polyde_proj3d/tutorial/HeatGood/
+
+
+WHATSYSTEM = LINUX

@@ -1,0 +1,17 @@
+
+startx = 0.
+starty = 38.125e-6
+startz = 0.
+
+
+VTK_FILE = temperatureve500k
+
+fieldtype = T
+SCALARPOINTPLOT
+
+fieldtype = Q
+VECTORPOINTPLOT
+
+!POLYORDER
+
+!Meshquality

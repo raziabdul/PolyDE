@@ -1,0 +1,3 @@
+!  material file 
+!  one line for each domain: first entry domain-name; second entry is material with which the domain is filled
+unity = unity 

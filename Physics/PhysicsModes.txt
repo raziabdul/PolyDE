@@ -1,0 +1,1406 @@
+! 2D Physics Modes
+Structure  =  2D		! beginning of section, either 2D or 3D
+
+
+!============================================================================================================================================
+Physicsmode = ACOUSTIC
+nnat = 1                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  POTENTIAL  , velocity potential       ,   m2/s          !  velocity potential
+numparam = 7
+!                  Name          Default Value       Unit
+parameter( 1) =     pml        ,   0.        ,                              !  type of material
+parameter( 2) =     rho        ,   1.205     ,       kg/m3                  !  material density in kg/m3; air at 20 °C
+parameter( 3) =     c          ,   343.1     ,       m/s                    !  sonic speed in m/s ; air at 20 °C
+parameter( 4) =     tan_delta  ,   0.        ,                              !  loss-tangent
+parameter( 5) =     f_x        ,   0.        ,       N/m^3                  !  external forces x direction
+parameter( 6) =     f_y        ,   0.        ,       N/m^3                  !  external forces y direction
+parameter( 7) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+gx(1) = 	        VX         , x-velocity               ,   m/s           !  negative Gradient, x-component
+gy(1) = 	        VY         , y-velocity               ,   m/s           !  negative Gradient, y-component
+g(1)  =             V          , velocity                 ,   m/s           !  Gradient magnitude ( sqrt(gx^2+gy^2) )
+
+
+!============================================================================================================================================
+Physicsmode = ELECTROSTATICS
+nnat = 1                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  POTENTIAL  , electric Potential       ,   V             !  electric Potential
+numparam = 4
+!                  Name          Default Value       Unit
+parameter( 1) =     epsr11     ,   1.        ,                              !  relative permittivity in the first principle axis
+parameter( 2) =     epsr22     ,   1.        ,                              !  relative permittivity in the second principle axis
+parameter( 3) =     angle      ,   0.        ,       degrees                !  angle between the x-axis and the first principle axis
+parameter( 4) =     rho        ,   0.        ,       C/m^3                  !  charge density
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+gx(1) = 	        EX         , electric field strength  ,   V/m           !  negative Gradient, x-component
+gy(1) = 	        EY         , electric field strength  ,   V/m           !  negative Gradient, y-component
+g(1)  =             E          , electric field strength  ,   V/m           !  Gradient magnitude ( sqrt(gx^2+gy^2) )
+fx(1) =             DX         , electric flux density    ,   As/m2         !  Flux, x-component, -nu*grad(u)|x
+fy(1) = 	        DY         , electric flux density    ,   As/m2         !  Flux, y-component
+f(1)  =             D          , electric flux density    ,   As/m2         !  Flux ( sqrt(fx^2+fy^2) )
+
+
+!============================================================================================================================================
+Physicsmode = FLOW_PROFILE
+nnat = 1                                                                    !  Number of Natures
+analysis type =  TH                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Vz         , velocity                 ,   m/s           !  velocity in z-direction
+numparam = 3
+!                  Name          Default Value       Unit
+parameter( 1) =     nu         ,   1003.e-6  ,                              !  viscosity in kg/m.s; water at 298 K, 101325 Pa
+parameter( 2) =     rho        ,   998.29    ,       kg/m3                  !  material density in kg/m3; water at 298 K, 101325 Pa
+parameter( 3) =     grad_p     ,   1.0       ,       Pa/m                   !  pressure gradient as scalar source term in Pa/m
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = FLUIDINCOMPR
+nnat = 3                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(3) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Ux         , velocity in x-direction  ,   m/s           !  x-velocity
+fieldquantity(2) =  Uy         , velocity in y-direction  ,   m/s           !  y-velocity
+fieldquantity(3) =  P          , Pressure                 ,   Pa            !  Pressure
+
+numparam = 2
+!                  Name          Default Value       Unit
+parameter( 1) =     mu         ,   1.73e-5   ,       kg/m.s                 !  dynamic viscosity in  (mu or eta);  water at 298 K, 101325 Pa
+parameter( 2) =     rho        ,   1.229     ,       kg/m3                  !  material density in kg/m3;  water at 298 K, 101325 Pa
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = FLUIDELINCOMPR
+nnat = 4                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(3) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(4) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Ux         , velocity in x-direction  ,   m/s           !  x-velocity
+fieldquantity(2) =  Uy         , velocity in y-direction  ,   m/s           !  y-velocity
+fieldquantity(3) =  P          , Pressure                 ,   Pa            !  Pressure
+fieldquantity(4) =  Potential  , electric Potential       ,   V             !  electric Potential
+
+numparam = 4
+!                  Name          Default Value       Unit
+parameter (1) =     mu         ,   1.73e-5   ,       kg/m.s                 !  dynamic viscosity in  (mu or eta);  water at 298 K, 101325 Pa
+parameter( 2) =     rho        ,   1.229     ,       kg/m3                  !  material density in kg/m3;  water at 298 K, 101325 Pa
+parameter( 3) =     epsr11     ,   1.        ,                              !  relative permittivity in the first principle axis
+parameter( 4) =     epsr22     ,   1.        ,                              !  relative permittivity in the second principle axis
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = FLUIDELMASSCON
+nnat = 5                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(3) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(4) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(5) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Ux         , velocity in x-direction  ,   m/s           !  x-velocity
+fieldquantity(2) =  Uy         , velocity in y-direction  ,   m/s           !  y-velocity
+fieldquantity(3) =  P          , Pressure                 ,   Pa            !  Pressure
+fieldquantity(4) =  Potential  , electric Potential       ,   V             !  electric Potential
+fieldquantity(5) =  MassCon    , mass concentration       ,   mol/(m3*s)    !  molar mass concentration
+
+numparam = 8
+!                  Name          Default Value       Unit
+parameter( 1) =     mu         ,   1.73e-5   ,       kg/m.s                 !  dynamic viscosity in  (mu or eta);  water at 298 K, 101325 Pa
+parameter( 2) =     rho        ,   1.229     ,       kg/m3                  !  material density in kg/m3;  water at 298 K, 101325 Pa
+parameter( 3) =     epsr11     ,   1.        ,                              !  relative permittivity in the first principle axis
+parameter( 4) =     epsr22     ,   1.        ,                              !  relative permittivity in the second principle axis
+parameter( 5) =     diffus11   ,   1.        ,       m2/s                   !  mass diffusivity in the first principle axis
+parameter( 6) =     diffus22   ,   1.        ,       m2/s                   !  mass diffusivity in the second principle axis
+parameter( 7) =     zeta       ,   1.        ,                              !  valence of ionic species
+parameter( 8) =     T_F        ,   293.15    ,       K                      !  relative permittivity in the second principle axis
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = FLUIDELMASSTEP
+nnat = 6                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(3) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(4) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(5) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(6) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Ux         , velocity in x-direction  ,   m/s           !  x-velocity
+fieldquantity(2) =  Uy         , velocity in y-direction  ,   m/s           !  y-velocity
+fieldquantity(3) =  P          , Pressure                 ,   Pa            !  Pressure
+fieldquantity(4) =  Potential  , electric Potential       ,   V             !  electric Potential
+fieldquantity(5) =  MassCon    , mass concentration       ,   mol/(m3*s)    !  molar mass concentration
+fieldquantity(6) =  T          , Temperature              ,   K             !  Temperature
+
+numparam = 11
+!                  Name          Default Value       Unit
+parameter( 1) =     mu         ,   1.73e-5   ,       kg/m.s                 !  dynamic viscosity in  (mu or eta);  water at 298 K, 101325 Pa
+parameter( 2) =     rho        ,   1.229     ,       kg/m3                  !  material density in kg/m3;  water at 298 K, 101325 Pa
+parameter( 3) =     epsr11     ,   1.        ,                              !  relative permittivity in the first principle axis
+parameter( 4) =     epsr22     ,   1.        ,                              !  relative permittivity in the second principle axis
+parameter( 5) =     diffus11   ,   1.        ,       m2/s                   !  mass diffusivity in the first principle axis
+parameter( 6) =     diffus22   ,   1.        ,       m2/s                   !  mass diffusivity in the second principle axis
+parameter( 7) =     zeta       ,   1.        ,                              !  valence of ionic species
+parameter( 8) =     lam11      ,   0.02      ,       W/m.K                  !  thermal conductivity in the first principle axis
+parameter( 9) =     lam22      ,   0.02      ,       W/m.K                  !  thermal conductivity in the second principle axis
+parameter(10) =     c_p        ,   1000.     ,       J/(kg.K)               !  specific heat
+parameter(11) =     P          ,   0.        ,       W/m2                   !  Power density
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = HEATTR
+nnat = 1                                                                    !  Number of Natures
+analysis type =  TH                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  T          , Temperature              ,   K             !  Temperature
+
+numparam = 13
+!                  Name          Default Value       Unit
+parameter( 1) =     lam11      ,   0.02      ,       W/m.K                  !  thermal conductivity in the first principle axis
+parameter( 2) =     lam22      ,   0.02      ,       W/m.K                  !  thermal conductivity in the second principle axis
+parameter( 3) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis
+parameter( 4) =     h_o        ,   0.        ,       W/(m2*K)               !  convection heat transfer coefficient (top side)
+parameter( 5) =     h_u        ,   0.        ,       W/(m2*K)               !  convection heat transfer coefficient (buttom suface)
+parameter( 6) =     d          ,   0.001     ,       m                      !  thickness of the plate
+parameter( 7) =     rho        ,   1.205     ,       kg/m3                  !  material density in kg/m3
+parameter( 8) =     c_p        ,   1000.     ,       J/(kg*K)               !  specific heat
+parameter( 9) =     P          ,   0.        ,       W/m3                   !  Power density (per volume)
+parameter(10) =     phase      ,   0.        ,                              !  phase of power density
+parameter(11) =     T_F        ,   293.15    ,       K                      !  temperature of the surrounding fluid (in Kelvin)
+parameter(12) =     velx       ,   0.        ,       m/s                    !  velocity in x-direction
+parameter(13) =     vely       ,   0.        ,       m/s                    !  velocity in y-direction
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+fx(1) = 	        Qx         , heat flux                ,   W/m2          !  Heat Flux, x-component
+fy(1) = 	        Qy         , heat flux                ,   W/m2          !  Heat Flux, y-component
+f(1)  =             Q          , heat flux                ,   W/m2          !  Heat Flux, Magnitude
+
+
+!============================================================================================================================================
+Physicsmode = TRANHEATTR
+nnat = 1                                                                    !  Number of Natures
+analysis type =  TR                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  T          , Temperature              ,   K             !  Temperature
+
+numparam = 7
+!                  Name          Default Value       Unit
+parameter( 1) =     lam11      ,   0.02      ,       W/m.K                  !  thermal conductivity in the first principle axis
+parameter( 2) =     lam22      ,   0.02      ,       W/m.K                  !  thermal conductivity in the second principle axis
+parameter( 3) =     d          ,   0.001     ,       m                      !  thickness of the plate
+parameter( 4) =     rho        ,   1.205     ,       kg/m3                  !  material density in kg/m3
+parameter( 5) =     c_p        ,   1000.     ,       J/(kg*K)               !  specific heat
+parameter( 6) =     P          ,   0.        ,       W/m3                   !  Power density (per volume)
+parameter( 7) =     phase      ,   0.        ,                              !  phase of power density
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = LAPLACE
+nnat = 1                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Potential  , potential   ,                              !  the potential
+
+numparam = 0
+!                  Name          Default Value       Unit
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = MAGNETICVP
+nnat = 1                                                                    !  Number of Natures
+analysis type =  TH                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Az         , magnetic vector potential,   Vs/m          !  magnetic vector potential in z-direction
+
+numparam = 9
+!                  Name          Default Value       Unit
+parameter( 1) =     mur11      ,   1.        ,                              !  relative permeability in the first principle axis
+parameter( 2) =     mur22      ,   1.        ,                              !  relative permeability in the second principle axis
+parameter( 3) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis
+parameter( 4) =     jmag       ,   0.0       ,       Vs/m2                  !  magnetic polarization (remanence induction), magnitude
+parameter( 5) =     velx       ,   0.0       ,       m/s                    !  x-velocity (movement realtive to the reference frame)
+parameter( 6) =     vely       ,   0.0       ,       m/s                    !  y-velocity (movement realtive to the reference frame)
+parameter( 7) =     J_z        ,   0.        ,       A/m2                   !  current density in z-direction
+parameter( 8) =     phase      ,   0.        ,                              !  phase angle of the current density (impressed field)
+parameter( 9) =     kappa      ,   0.        ,       V/(A*m)                !  electric conductivity
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+fx(1) = 	        By         , magnetic flux density    ,   T             !  magnetic flux density, y-component
+fy(1) = 	        Bx         , magnetic flux density    ,   T             !  magnetic flux density, x-component
+f (1) = 	        B          , magnetic flux density    ,   T             !  magnetic flux density, magnitude
+
+
+!============================================================================================================================================
+Physicsmode = STATCURRENT
+nnat = 1                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Potential  , electric Potential       ,   V             !  electric (scalar) potential
+
+numparam = 7
+!                  Name          Default Value       Unit
+parameter( 1) =     kappa11    ,   1.        ,                              !  relative permeability in the first principle axis
+parameter( 2) =     kappa22    ,   1.        ,                              !  relative permeability in the second principle axis
+parameter( 3) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis
+parameter( 4) =     d          ,   0.001     ,       m                      !  thickness of the plate
+parameter( 5) =     source     ,   0.        ,       A/m3                   !  current source (volume)
+parameter( 6) =     J_x        ,   0.        ,       A/m2                   !  external current density, x-directed
+parameter( 7) =     J_y        ,   0.        ,       A/m2                   !  external current density, y-directed
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+gx(1) = 	        Ex         , electric field strength  ,   V/m           !  electric field strength, x-component
+gy(1) = 	        Ey         , electric field strength  ,   V/m           !  electric field strength, y-component
+g (1) = 	        E          , electric field strength  ,   V/m           !  electric field strength , magnitude
+
+
+!============================================================================================================================================
+Physicsmode = TEWAVE
+nnat = 1                                                                    !  Number of Natures
+analysis type =  TH                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Ez         , electric field strength  ,   V/m           !  electric field strength (transversal)
+
+numparam = 141
+!                  Name          Default Value       Unit
+parameter( 1) =     pml        ,   0.        ,                              !  is material a PML? (set 0 for false or 1 for true)
+parameter( 2) =     vpml1      ,   1.        ,                              !  direction/vector of PML attenuation (default set to x-direction), component1 
+parameter( 3) =     vpml2      ,   0.        ,                              !                                                                    component2 
+parameter( 4) =     vpml3      ,   0.        ,                              !                                                                    component3
+parameter( 5) =     vpa11      ,   1.        ,                              !  direction/vector of first principal axis (default set to x-direction), component1 
+parameter( 6) =     vpa12      ,   0.        ,                              !                                                                         component2
+parameter( 7) =     vpa13      ,   0.        ,                              !                                                                         component3 
+parameter( 8) =     vpa21      ,   0.        ,                              !  direction/vector of second principal axis (default set to y-direction), component1 
+parameter( 9) =     vpa22      ,   1.        ,                              !                                                                          component2
+parameter(10) =     vpa23      ,   0.        ,                              !                                                                          component3 
+parameter(11) =     eps11      ,   1.        ,                              !  relative permittivity in the first,
+parameter(12) =     eps22      ,   1.        ,                              !                               second,
+parameter(13) =     eps33      ,   1.        ,                              !                           and third principal axis
+parameter(14) = tan_delta_eps1 ,   0.        ,                              !  loss tangent for permittivity in the first,
+parameter(15) = tan_delta_eps2 ,   0.        ,                              !                                       second,
+parameter(16) = tan_delta_eps3 ,   0.        ,                              !                                   and third principal axis
+parameter(17) =     mur11      ,   1.        ,                              !  relative permeability in the first,
+parameter(18) =     mur22      ,   1.        ,                              !                               second,
+parameter(19) =     mur33      ,   1.        ,                              !                           and third principal axis
+parameter(20) = tan_delta_mu1  ,   0.        ,                              !  loss tangent for permeability in the first,
+parameter(21) = tan_delta_mu2  ,   0.        ,                              !                                       second,
+parameter(22) = tan_delta_mu3  ,   0.        ,                              !                                   and third principal axis
+parameter(23) =     J_x        ,   0.        ,       A/m2                   !  current density in the x-, 
+parameter(24) =     J_y        ,   0.        ,       A/m2                   !                         y-,
+parameter(25) =     J_z        ,   0.        ,       A/m2                   !                     and z-direction
+parameter(26) =     phase      ,   0.        ,                              !  phase angle of the current density (x-, y- and z- currents have same phase)
+parameter(27) =     deps_by_dT ,   0.        ,       1/K                    !  thermo-optic coefficient
+parameter(28) =     r11        ,   0.        ,       m/V                    !  linear (Pockels) electro-optic coefficients
+parameter(29) =     r12        ,   0.        ,       m/V                    !         Rank 3 Tensor (matrix notation)
+parameter(30) =     r13        ,   0.        ,       m/V                    !  
+parameter(31) =     r21        ,   0.        ,       m/V                    !  
+parameter(32) =     r22        ,   0.        ,       m/V                    !  
+parameter(33) =     r23        ,   0.        ,       m/V                    !  
+parameter(34) =     r31        ,   0.        ,       m/V                    !  
+parameter(35) =     r32        ,   0.        ,       m/V                    !  
+parameter(36) =     r33        ,   0.        ,       m/V                    !  
+parameter(37) =     r41        ,   0.        ,       m/V                    !  
+parameter(38) =     r42        ,   0.        ,       m/V                    !  
+parameter(39) =     r43        ,   0.        ,       m/V                    !  
+parameter(40) =     r51        ,   0.        ,       m/V                    !  
+parameter(41) =     r52        ,   0.        ,       m/V                    !  
+parameter(42) =     r53        ,   0.        ,       m/V                    !  
+parameter(43) =     r61        ,   0.        ,       m/V                    !  
+parameter(44) =     r62        ,   0.        ,       m/V                    !  
+parameter(45) =     r63        ,   0.        ,       m/V                    !  
+parameter(46) =     k11        ,   0.        ,       m2/V2                  !  quadratic (Kerr) electro-optic coefficients
+parameter(47) =     k12        ,   0.        ,       m2/V2                  !         Rank 4 Tensor (matrix notation)
+parameter(48) =     k13        ,   0.        ,       m2/V2                  !
+parameter(49) =     k14        ,   0.        ,       m2/V2                  !
+parameter(50) =     k15        ,   0.        ,       m2/V2                  !
+parameter(51) =     k16        ,   0.        ,       m2/V2                  !
+parameter(52) =     k21        ,   0.        ,       m2/V2                  !
+parameter(53) =     k22        ,   0.        ,       m2/V2                  !
+parameter(54) =     k23        ,   0.        ,       m2/V2                  !
+parameter(55) =     k24        ,   0.        ,       m2/V2                  !
+parameter(56) =     k25        ,   0.        ,       m2/V2                  !
+parameter(57) =     k26        ,   0.        ,       m2/V2                  !
+parameter(58) =     k31        ,   0.        ,       m2/V2                  !
+parameter(59) =     k32        ,   0.        ,       m2/V2                  !
+parameter(60) =     k33        ,   0.        ,       m2/V2                  !
+parameter(61) =     k34        ,   0.        ,       m2/V2                  !
+parameter(62) =     k35        ,   0.        ,       m2/V2                  !
+parameter(63) =     k36        ,   0.        ,       m2/V2                  !
+parameter(64) =     k41        ,   0.        ,       m2/V2                  !
+parameter(65) =     k42        ,   0.        ,       m2/V2                  !
+parameter(66) =     k43        ,   0.        ,       m2/V2                  !
+parameter(67) =     k44        ,   0.        ,       m2/V2                  !
+parameter(68) =     k45        ,   0.        ,       m2/V2                  !
+parameter(69) =     k46        ,   0.        ,       m2/V2                  !
+parameter(70) =     k51        ,   0.        ,       m2/V2                  !
+parameter(71) =     k52        ,   0.        ,       m2/V2                  !
+parameter(72) =     k53        ,   0.        ,       m2/V2                  !
+parameter(73) =     k54        ,   0.        ,       m2/V2                  !
+parameter(74) =     k55        ,   0.        ,       m2/V2                  !
+parameter(75) =     k56        ,   0.        ,       m2/V2                  !
+parameter(76) =     k61        ,   0.        ,       m2/V2                  !
+parameter(77) =     k62        ,   0.        ,       m2/V2                  !
+parameter(78) =     k63        ,   0.        ,       m2/V2                  !
+parameter(79) =     k64        ,   0.        ,       m2/V2                  !
+parameter(80) =     k65        ,   0.        ,       m2/V2                  !
+parameter(81) =     k66        ,   0.        ,       m2/V2                  !
+parameter(82) =     p11        ,   0.        ,                              !  elasto-optic coefficients 
+parameter(83) =     p12        ,   0.        ,                              !  ratio between dielectric impermeability and mechanical strain
+parameter(84) =     p13        ,   0.        ,                              !         Rank 4 Tensor (matrix notation)
+parameter(85) =     p14        ,   0.        ,                              !
+parameter(86) =     p15        ,   0.        ,                              !
+parameter(87) =     p16        ,   0.        ,                              !
+parameter(88) =     p21        ,   0.        ,                              !
+parameter(89) =     p22        ,   0.        ,                              !
+parameter(90) =     p23        ,   0.        ,                              !
+parameter(91) =     p24        ,   0.        ,                              !
+parameter(92) =     p25        ,   0.        ,                              !
+parameter(93) =     p26        ,   0.        ,                              !
+parameter(94) =     p31        ,   0.        ,                              !
+parameter(95) =     p32        ,   0.        ,                              !
+parameter(96) =     p33        ,   0.        ,                              !
+parameter(97) =     p34        ,   0.        ,                              !
+parameter(98) =     p35        ,   0.        ,                              !
+parameter(99) =     p36        ,   0.        ,                              !
+parameter(100)=     p41        ,   0.        ,                              !
+parameter(101)=     p42        ,   0.        ,                              !
+parameter(102)=     p43        ,   0.        ,                              !
+parameter(103)=     p44        ,   0.        ,                              !
+parameter(104)=     p45        ,   0.        ,                              !
+parameter(105)=     p46        ,   0.        ,                              !
+parameter(106)=     p51        ,   0.        ,                              !
+parameter(107)=     p52        ,   0.        ,                              !
+parameter(108)=     p53        ,   0.        ,                              !
+parameter(109)=     p54        ,   0.        ,                              !
+parameter(110)=     p55        ,   0.        ,                              !
+parameter(111)=     p56        ,   0.        ,                              !
+parameter(112)=     p61        ,   0.        ,                              !
+parameter(113)=     p62        ,   0.        ,                              !
+parameter(114)=     p63        ,   0.        ,                              !
+parameter(115)=     p64        ,   0.        ,                              !
+parameter(116)=     p65        ,   0.        ,                              !
+parameter(117)=     p66        ,   0.        ,                              !
+parameter(118)=     d11        ,   0.        ,       m/V                    !  piezo-electric coefficients 
+parameter(119)=     d12        ,   0.        ,       m/V                    !         Rank 3 Tensor (matrix notation)
+parameter(120)=     d13        ,   0.        ,       m/V                    !
+parameter(121)=     d14        ,   0.        ,       m/V                    !
+parameter(122)=     d15        ,   0.        ,       m/V                    !
+parameter(123)=     d16        ,   0.        ,       m/V                    !
+parameter(124)=     d21        ,   0.        ,       m/V                    !
+parameter(125)=     d22        ,   0.        ,       m/V                    !
+parameter(126)=     d23        ,   0.        ,       m/V                    !
+parameter(127)=     d24        ,   0.        ,       m/V                    !
+parameter(128)=     d25        ,   0.        ,       m/V                    !
+parameter(129)=     d26        ,   0.        ,       m/V                    !
+parameter(130)=     d21        ,   0.        ,       m/V                    !
+parameter(131)=     d22        ,   0.        ,       m/V                    !
+parameter(132)=     d23        ,   0.        ,       m/V                    !
+parameter(133)=     d24        ,   0.        ,       m/V                    !
+parameter(134)=     d25        ,   0.        ,       m/V                    !
+parameter(135)=     d26        ,   0.        ,       m/V                    !
+parameter(136)=     alpha1     ,   0.        ,       1/K                    !  thermal expansion coefficients
+parameter(137)=     alpha2     ,   0.        ,       1/K                    !         Rank 2 Tensor (matrix notation)
+parameter(138)=     alpha3     ,   0.        ,       1/K                    !
+parameter(139)=     alpha4     ,   0.        ,       1/K                    !
+parameter(140)=     alpha5     ,   0.        ,       1/K                    !
+parameter(141)=     alpha6     ,   0.        ,       1/K                    !
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = TMWAVE
+nnat = 1                                                                    !  Number of Natures
+analysis type =  TH                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  Hz         , electric field strength  ,   A/m           !  magnetic field strength (transversal)
+
+numparam = 141
+!                  Name          Default Value       Unit
+parameter( 1) =     pml        ,   0.        ,                              !  is material a PML? (set 0 for false or 1 for true)
+parameter( 2) =     vpml1      ,   1.        ,                              !  direction/vector of PML attenuation (default set to x-direction), component1 
+parameter( 3) =     vpml2      ,   0.        ,                              !                                                                    component2 
+parameter( 4) =     vpml3      ,   0.        ,                              !                                                                    component3
+parameter( 5) =     vpa11      ,   1.        ,                              !  direction/vector of first principal axis (default set to x-direction), component1 
+parameter( 6) =     vpa12      ,   0.        ,                              !                                                                         component2
+parameter( 7) =     vpa13      ,   0.        ,                              !                                                                         component3 
+parameter( 8) =     vpa21      ,   0.        ,                              !  direction/vector of second principal axis (default set to y-direction), component1 
+parameter( 9) =     vpa22      ,   1.        ,                              !                                                                          component2
+parameter(10) =     vpa23      ,   0.        ,                              !                                                                          component3 
+parameter(11) =     eps11      ,   1.        ,                              !  relative permittivity in the first,
+parameter(12) =     eps22      ,   1.        ,                              !                               second,
+parameter(13) =     eps33      ,   1.        ,                              !                           and third principal axis
+parameter(14) = tan_delta_eps1 ,   0.        ,                              !  loss tangent for permittivity in the first,
+parameter(15) = tan_delta_eps2 ,   0.        ,                              !                                       second,
+parameter(16) = tan_delta_eps3 ,   0.        ,                              !                                   and third principal axis
+parameter(17) =     mur11      ,   1.        ,                              !  relative permeability in the first,
+parameter(18) =     mur22      ,   1.        ,                              !                               second,
+parameter(19) =     mur33      ,   1.        ,                              !                           and third principal axis
+parameter(20) = tan_delta_mu1  ,   0.        ,                              !  loss tangent for permeability in the first,
+parameter(21) = tan_delta_mu2  ,   0.        ,                              !                                       second,
+parameter(22) = tan_delta_mu3  ,   0.        ,                              !                                   and third principal axis
+parameter(23) =     J_x        ,   0.        ,       A/m2                   !  current density in the x-, 
+parameter(24) =     J_y        ,   0.        ,       A/m2                   !                         y-,
+parameter(25) =     J_z        ,   0.        ,       A/m2                   !                     and z-direction
+parameter(26) =     phase      ,   0.        ,                              !  phase angle of the current density (x-, y- and z- currents have same phase)
+parameter(27) =     deps_by_dT ,   0.        ,       1/K                    !  thermo-optic coefficient
+parameter(28) =     r11        ,   0.        ,       m/V                    !  linear (Pockels) electro-optic coefficients
+parameter(29) =     r12        ,   0.        ,       m/V                    !         Rank 3 Tensor (matrix notation)
+parameter(30) =     r13        ,   0.        ,       m/V                    !  
+parameter(31) =     r21        ,   0.        ,       m/V                    !  
+parameter(32) =     r22        ,   0.        ,       m/V                    !  
+parameter(33) =     r23        ,   0.        ,       m/V                    !  
+parameter(34) =     r31        ,   0.        ,       m/V                    !  
+parameter(35) =     r32        ,   0.        ,       m/V                    !  
+parameter(36) =     r33        ,   0.        ,       m/V                    !  
+parameter(37) =     r41        ,   0.        ,       m/V                    !  
+parameter(38) =     r42        ,   0.        ,       m/V                    !  
+parameter(39) =     r43        ,   0.        ,       m/V                    !  
+parameter(40) =     r51        ,   0.        ,       m/V                    !  
+parameter(41) =     r52        ,   0.        ,       m/V                    !  
+parameter(42) =     r53        ,   0.        ,       m/V                    !  
+parameter(43) =     r61        ,   0.        ,       m/V                    !  
+parameter(44) =     r62        ,   0.        ,       m/V                    !  
+parameter(45) =     r63        ,   0.        ,       m/V                    !  
+parameter(46) =     k11        ,   0.        ,       m2/V2                  !  quadratic (Kerr) electro-optic coefficients
+parameter(47) =     k12        ,   0.        ,       m2/V2                  !         Rank 4 Tensor (matrix notation)
+parameter(48) =     k13        ,   0.        ,       m2/V2                  !
+parameter(49) =     k14        ,   0.        ,       m2/V2                  !
+parameter(50) =     k15        ,   0.        ,       m2/V2                  !
+parameter(51) =     k16        ,   0.        ,       m2/V2                  !
+parameter(52) =     k21        ,   0.        ,       m2/V2                  !
+parameter(53) =     k22        ,   0.        ,       m2/V2                  !
+parameter(54) =     k23        ,   0.        ,       m2/V2                  !
+parameter(55) =     k24        ,   0.        ,       m2/V2                  !
+parameter(56) =     k25        ,   0.        ,       m2/V2                  !
+parameter(57) =     k26        ,   0.        ,       m2/V2                  !
+parameter(58) =     k31        ,   0.        ,       m2/V2                  !
+parameter(59) =     k32        ,   0.        ,       m2/V2                  !
+parameter(60) =     k33        ,   0.        ,       m2/V2                  !
+parameter(61) =     k34        ,   0.        ,       m2/V2                  !
+parameter(62) =     k35        ,   0.        ,       m2/V2                  !
+parameter(63) =     k36        ,   0.        ,       m2/V2                  !
+parameter(64) =     k41        ,   0.        ,       m2/V2                  !
+parameter(65) =     k42        ,   0.        ,       m2/V2                  !
+parameter(66) =     k43        ,   0.        ,       m2/V2                  !
+parameter(67) =     k44        ,   0.        ,       m2/V2                  !
+parameter(68) =     k45        ,   0.        ,       m2/V2                  !
+parameter(69) =     k46        ,   0.        ,       m2/V2                  !
+parameter(70) =     k51        ,   0.        ,       m2/V2                  !
+parameter(71) =     k52        ,   0.        ,       m2/V2                  !
+parameter(72) =     k53        ,   0.        ,       m2/V2                  !
+parameter(73) =     k54        ,   0.        ,       m2/V2                  !
+parameter(74) =     k55        ,   0.        ,       m2/V2                  !
+parameter(75) =     k56        ,   0.        ,       m2/V2                  !
+parameter(76) =     k61        ,   0.        ,       m2/V2                  !
+parameter(77) =     k62        ,   0.        ,       m2/V2                  !
+parameter(78) =     k63        ,   0.        ,       m2/V2                  !
+parameter(79) =     k64        ,   0.        ,       m2/V2                  !
+parameter(80) =     k65        ,   0.        ,       m2/V2                  !
+parameter(81) =     k66        ,   0.        ,       m2/V2                  !
+parameter(82) =     p11        ,   0.        ,                              !  elasto-optic coefficients 
+parameter(83) =     p12        ,   0.        ,                              !  ratio between dielectric impermeability and mechanical strain
+parameter(84) =     p13        ,   0.        ,                              !         Rank 4 Tensor (matrix notation)
+parameter(85) =     p14        ,   0.        ,                              !
+parameter(86) =     p15        ,   0.        ,                              !
+parameter(87) =     p16        ,   0.        ,                              !
+parameter(88) =     p21        ,   0.        ,                              !
+parameter(89) =     p22        ,   0.        ,                              !
+parameter(90) =     p23        ,   0.        ,                              !
+parameter(91) =     p24        ,   0.        ,                              !
+parameter(92) =     p25        ,   0.        ,                              !
+parameter(93) =     p26        ,   0.        ,                              !
+parameter(94) =     p31        ,   0.        ,                              !
+parameter(95) =     p32        ,   0.        ,                              !
+parameter(96) =     p33        ,   0.        ,                              !
+parameter(97) =     p34        ,   0.        ,                              !
+parameter(98) =     p35        ,   0.        ,                              !
+parameter(99) =     p36        ,   0.        ,                              !
+parameter(100)=     p41        ,   0.        ,                              !
+parameter(101)=     p42        ,   0.        ,                              !
+parameter(102)=     p43        ,   0.        ,                              !
+parameter(103)=     p44        ,   0.        ,                              !
+parameter(104)=     p45        ,   0.        ,                              !
+parameter(105)=     p46        ,   0.        ,                              !
+parameter(106)=     p51        ,   0.        ,                              !
+parameter(107)=     p52        ,   0.        ,                              !
+parameter(108)=     p53        ,   0.        ,                              !
+parameter(109)=     p54        ,   0.        ,                              !
+parameter(110)=     p55        ,   0.        ,                              !
+parameter(111)=     p56        ,   0.        ,                              !
+parameter(112)=     p61        ,   0.        ,                              !
+parameter(113)=     p62        ,   0.        ,                              !
+parameter(114)=     p63        ,   0.        ,                              !
+parameter(115)=     p64        ,   0.        ,                              !
+parameter(116)=     p65        ,   0.        ,                              !
+parameter(117)=     p66        ,   0.        ,                              !
+parameter(118)=     d11        ,   0.        ,       m/V                    !  piezo-electric coefficients 
+parameter(119)=     d12        ,   0.        ,       m/V                    !         Rank 3 Tensor (matrix notation)
+parameter(120)=     d13        ,   0.        ,       m/V                    !
+parameter(121)=     d14        ,   0.        ,       m/V                    !
+parameter(122)=     d15        ,   0.        ,       m/V                    !
+parameter(123)=     d16        ,   0.        ,       m/V                    !
+parameter(124)=     d21        ,   0.        ,       m/V                    !
+parameter(125)=     d22        ,   0.        ,       m/V                    !
+parameter(126)=     d23        ,   0.        ,       m/V                    !
+parameter(127)=     d24        ,   0.        ,       m/V                    !
+parameter(128)=     d25        ,   0.        ,       m/V                    !
+parameter(129)=     d26        ,   0.        ,       m/V                    !
+parameter(130)=     d21        ,   0.        ,       m/V                    !
+parameter(131)=     d22        ,   0.        ,       m/V                    !
+parameter(132)=     d23        ,   0.        ,       m/V                    !
+parameter(133)=     d24        ,   0.        ,       m/V                    !
+parameter(134)=     d25        ,   0.        ,       m/V                    !
+parameter(135)=     d26        ,   0.        ,       m/V                    !
+parameter(136)=     alpha1     ,   0.        ,       1/K                    !  thermal expansion coefficients
+parameter(137)=     alpha2     ,   0.        ,       1/K                    !         Rank 2 Tensor (matrix notation)
+parameter(138)=     alpha3     ,   0.        ,       1/K                    !
+parameter(139)=     alpha4     ,   0.        ,       1/K                    !
+parameter(140)=     alpha5     ,   0.        ,       1/K                    !
+parameter(141)=     alpha6     ,   0.        ,       1/K                    !
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = THERMOELECTRIC
+nnat = 2                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  T          , Temperature              ,   K             !  Temperature
+fieldquantity(2) =  Potential  , electric Potential       ,   V             !  electric (scalar) potential
+
+numparam = 24
+!                  Name          Default Value       Unit
+parameter( 1) =     lam11      ,   0.02      ,       W/m.K                  !  thermal conductivity in the first principle axis
+parameter( 2) =     lam22      ,   0.02      ,       W/m.K                  !  thermal conductivity in the second principle axis
+parameter( 3) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis of th. conductivity
+parameter( 4) =     h_o        ,   0.        ,       W/(m2*K)               !  convection heat transfer coefficient (top side)
+parameter( 5) =     h_u        ,   0.        ,       W/(m2*K)               !  convection heat transfer coefficient (buttom suface)
+parameter( 6) =     d          ,   0.001     ,       m                      !  thickness of the plate (thermal thickness)
+parameter( 7) =     rho        ,   1.205     ,       kg/m3                  !  material density in kg/m3
+parameter( 8) =     c_p        ,   1000.     ,       J/(kg*K)               !  specific heat
+parameter( 9) =     P          ,   0.        ,       W/m3                   !  Power density (per volume)
+parameter(10) =     phase      ,   0.        ,                              !  phase of power density
+parameter(11) =     T_F        ,   293.15    ,       K                      !  temperature of the surrounding fluid (in Kelvin)
+parameter(12) =     velx       ,   0.        ,       m/s                    !  velocity in x-direction
+parameter(13) =     vely       ,   0.        ,       m/s                    !  velocity in y-direction
+parameter(14) =     kappa11    ,   1.        ,                              !  relative conductivity in the first principle axis
+parameter(15) =     kappa22    ,   1.        ,                              !  relative conductivity in the second principle axis
+parameter(16) =     angle1     ,   0.        ,                              !  angle between the  x-axis and the first principle axis of el. conductivity
+parameter(17) =     d1         ,   0.001     ,       m                      !  thickness of the plate (electric thickness)
+parameter(18) =     source     ,   0.        ,       A/m3                   !  current source (volume)
+parameter(19) =     J_x        ,   0.        ,       A/m2                   !  external current density, x-directed
+parameter(20) =     J_y        ,   0.        ,       A/m2                   !  external current density, y-directed
+parameter(21) =     Peltier    ,   0.        ,       V                      !  thermoelectric coupling Peltier coefficient
+parameter(22) =     Seebeck    ,   0.        ,       V/K                    !  thermoelectric coupling Seebeck coefficient
+parameter(23) =     Tref       ,   1.        ,       K                      !  Reference Temperature (of thermoelectric effect)
+parameter(24) =     TCR        ,   0.        ,                              !  Temperature Coefficient of Resistance
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+fx(1) = 	        QX         , heat flux                ,   W/m2          !  Heat Flux, x-component
+fy(1) = 	        QY         , heat flux                ,   W/m2          !  Heat Flux, y-component
+f(1)  =             Q          , heat flux                ,   W/m2          !  Heat Flux, Magnitude
+gx(2) = 	        Ex         , electric field strength  ,   V/m           !  electric field strength, x-component
+gy(2) = 	        Ey         , electric field strength  ,   V/m           !  electric field strength, y-component
+g (2) = 	        E          , electric field strength  ,   V/m           !  electric field strength , magnitude
+fx(2) = 	        Jx         , electric current desity  ,   A/m2          !  electric current density, x-component
+fy(2) = 	        Jy         , electric current desity  ,   A/m2          !  electric current density, y-component
+f(2) = 	        J          , electric current desity  ,   A/m2          !  electric current density, magnitude
+
+
+!============================================================================================================================================
+Physicsmode = PLANE STRAIN
+nnat = 2                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  del-x       , x-displacement          ,   m             !  x-displacement
+fieldquantity(2) =  del-y       , y-displacement          ,   m             !  y-displacement
+
+numparam = 16
+!                  Name          Default Value       Unit
+parameter( 1) =     rho        ,   1.        ,       kg/m3                  !  material density in kg/m3
+parameter( 2) =     Young      ,   1.        ,       Pa                     !  Young's modulus E
+parameter( 3) =     Poisson    ,   0.3       ,                              !  Poisson's ratio nu
+parameter( 4) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis of th. conductivity
+parameter( 5) =     c11        ,   0.        ,       N/m2                   !  stiffness matrix coefficients (in the case of anisotropic materials)
+parameter( 6) =     c12        ,   0.        ,       N/m2                   !       2D - Rank 4 Tensor (matrix notation)
+parameter( 7) =     c13        ,   0.        ,       N/m2                   !
+parameter( 8) =     c21        ,   0.        ,       N/m2                   !       |sigma_xx|   |C11 C12 C13|   |epsilon_xx|
+parameter( 9) =     c22        ,   0.        ,       N/m2                   !       |sigma_yy| = |C21 C22 C23| . |epsilon_yy|
+parameter(10) =     c23        ,   0.        ,       N/m2                   !       | tau_xy |   |C31 C32 C33|   | gamma_xy |
+parameter(11) =     c31        ,   0.        ,       N/m2                   !
+parameter(12) =     c32        ,   0.        ,       N/m2                   !
+parameter(13) =     c33        ,   0.        ,       N/m2                   !
+parameter(14) =   anisotropic  ,   0.        ,                              !  for the indication of an anisotropic material (default value is 0 so this means that the material is isotropic by default)
+parameter(15) =     BodyFx     ,   0.        ,       N/m3                   !  Body (Volume) force in x-direction
+parameter(16) =     BodyFy     ,   0.        ,       N/m3                   !  Body (Volume) force in y-direction
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = PLANE STRESS
+nnat = 2                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  del-x       , x-displacement          ,   m             !  x-displacement
+fieldquantity(2) =  del-y       , y-displacement          ,   m             !  y-displacement
+
+numparam = 16
+!                  Name          Default Value       Unit
+parameter( 1) =     rho        ,   1.        ,       kg/m3                  !  material density in kg/m3
+parameter( 2) =     Young      ,   1.        ,       Pa                     !  Young's modulus E
+parameter( 3) =     Poisson    ,   0.3       ,                              !  Poisson's ratio nu
+parameter( 4) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis of th. conductivity
+parameter( 5) =     c11        ,   0.        ,       N/m2                   !  stiffness matrix coefficients (in the case of anisotropic materials)
+parameter( 6) =     c12        ,   0.        ,       N/m2                   !       2D - Rank 4 Tensor (matrix notation)
+parameter( 7) =     c13        ,   0.        ,       N/m2                   !
+parameter( 8) =     c21        ,   0.        ,       N/m2                   !       |sigma_xx|   |C11 C12 C13|   |epsilon_xx|
+parameter( 9) =     c22        ,   0.        ,       N/m2                   !       |sigma_yy| = |C21 C22 C23| . |epsilon_yy|
+parameter(10) =     c23        ,   0.        ,       N/m2                   !       | tau_xy |   |C31 C32 C33|   | gamma_xy |
+parameter(11) =     c31        ,   0.        ,       N/m2                   !
+parameter(12) =     c32        ,   0.        ,       N/m2                   !
+parameter(13) =     c33        ,   0.        ,       N/m2                   !
+parameter(14) =   anisotropic  ,   0.        ,                              !  for the indication of an anisotropic material (default value is 0 so this means that the material is isotropic by default)
+parameter(15) =     BodyFx     ,   0.        ,       N/m3                   !  Body (Volume) force in x-direction
+parameter(16) =     BodyFy     ,   0.        ,       N/m3                   !  Body (Volume) force in y-direction
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = THERMOELASTIC
+nnat = 3                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !
+eltype(3) = 1                                                               !
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  del-x       , x-displacement          ,   m             !  x-displacement
+fieldquantity(2) =  del-y       , y-displacement          ,   m             !  y-displacement
+fieldquantity(3) =  T          , Temperature              ,   K             !  Temperature
+
+numparam = 41
+!                  Name          Default Value       Unit
+parameter( 1) =     rho        ,   1.        ,       kg/m3                  !  material density in kg/m3
+parameter( 2) =     Young      ,   1.        ,       Pa                     !  Young's modulus E
+parameter( 3) =     Poisson    ,   0.3       ,                              !  Poisson's ratio nu
+parameter( 4) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis of th. conductivity
+parameter( 5) =     c11        ,   0.        ,       N/m2                   !  stiffness matrix coefficients (in the case of anisotropic materials)
+parameter( 6) =     c12        ,   0.        ,       N/m2                   !       2D - Rank 4 Tensor (matrix notation)
+parameter( 7) =     c13        ,   0.        ,       N/m2                   !
+parameter( 8) =     c21        ,   0.        ,       N/m2                   !       |sigma_xx|   |C11 C12 C13|   |epsilon_xx|
+parameter( 9) =     c22        ,   0.        ,       N/m2                   !       |sigma_yy| = |C21 C22 C23| . |epsilon_yy|
+parameter(10) =     c23        ,   0.        ,       N/m2                   !       | tau_xy |   |C31 C32 C33|   | gamma_xy |
+parameter(11) =     c31        ,   0.        ,       N/m2                   !
+parameter(12) =     c32        ,   0.        ,       N/m2                   !
+parameter(13) =     c33        ,   0.        ,       N/m2                   !
+parameter(14) =   anisotropic  ,   0.        ,                              !  for the indication of an anisotropic material (default value is 0 so this means that the material is isotropic by default)
+parameter(15) =     A11        ,   0.        ,       1/K                    !  thermal expansion coefficients
+parameter(16) =     A12        ,   0.        ,       1/K                    !        2D - Rank-2 tensor    |A11 A12|
+parameter(17) =     A21        ,   0.        ,       1/K                    !                              |A21 A22|
+parameter(18) =     A22        ,   0.        ,       1/K                    !
+parameter(19) =     lam11      ,   0.02      ,       W/m.K                  !  thermal conductivity in the first principle axis
+parameter(20) =     lam22      ,   0.02      ,       W/m.K                  !  thermal conductivity in the second principle axis
+parameter(21) =     d          ,   0.001     ,       m                      !  thickness of the plate (thermal thickness)
+parameter(22) =     c_p        ,   1000.     ,       J/(kg*K)               !  specific heat
+parameter(23) =     Tref       ,   0.        ,       K                      !  Reference temperature in K for the thermal expansion
+parameter(24) =     P          ,   0.        ,       W/m3                   !  Power density (per volume)
+parameter(25) =     C1111      ,   0.        ,       N/m2                   !  stiffness matrix coefficients (in the case of anisotropic materials)
+parameter(26) =     C1112      ,   0.        ,       N/m2                   !       full - Rank 4 Tensor
+parameter(27) =     C1121      ,   0.        ,       N/m2                   !
+parameter(28) =     C1122      ,   0.        ,       N/m2                   !
+parameter(29) =     C1211      ,   0.        ,       N/m2                   !
+parameter(30) =     C1212      ,   0.        ,       N/m2                   !
+parameter(31) =     C1221      ,   0.        ,       N/m2                   !
+parameter(32) =     C1222      ,   0.        ,       N/m2                   !
+parameter(33) =     C2111      ,   0.        ,       N/m2                   !
+parameter(34) =     C2112      ,   0.        ,       N/m2                   !
+parameter(35) =     C2121      ,   0.        ,       N/m2                   !
+parameter(36) =     C2122      ,   0.        ,       N/m2                   !
+parameter(37) =     C2211      ,   0.        ,       N/m2                   !
+parameter(38) =     C2212      ,   0.        ,       N/m2                   !
+parameter(39) =     C2221      ,   0.        ,       N/m2                   !
+parameter(40) =     C2222      ,   0.        ,       N/m2                   !
+parameter(41) =    Engineering ,   0.        ,       N/m2                   !  for the use of the engineering stiffness matrix (default value is 0 such the user should input the full rank-4 stiffnes tensor by default)
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = TRANPLSTRAIN
+nnat = 2                                                                    !  Number of Natures
+analysis type =  TR                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  del-x       , x-displacement          ,   m             !  x-displacement
+fieldquantity(2) =  del-y       , y-displacement          ,   m             !  y-displacement
+
+numparam = 6
+!                  Name          Default Value       Unit
+parameter( 1) =     rho        ,   1.        ,       kg/m3                  !  material density in kg/m3
+parameter( 2) =     Young      ,   1.        ,       Pa                     !  Young's modulus E
+parameter( 3) =     Poisson    ,   0.3       ,                              !  Poisson's ratio nu
+parameter( 4) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis of th. conductivity
+parameter( 5) =     BodyFx     ,   0.        ,       N/m3                   !  Body (Volume) force in x-direction
+parameter( 6) =     BodyFy     ,   0.        ,       N/m3                   !  Body (Volume) force in y-direction
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = GRAVITOELASTIC
+nnat = 3                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !
+eltype(3) = 1                                                               !
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  del-x       , x-displacement          ,   m             !  x-displacement
+fieldquantity(2) =  del-y       , y-displacement          ,   m             !  y-displacement
+fieldquantity(3) =  GPOTENTIAL    , gravity potential     ,   m2/s2         !  gravity potential
+
+numparam = 17
+!                  Name          Default Value       Unit
+parameter( 1) =     rho        ,   1.        ,       kg/m3                  !  material density in kg/m3
+parameter( 2) =     Young      ,   1.        ,       Pa                     !  Young's modulus E
+parameter( 3) =     Poisson    ,   0.3       ,                              !  Poisson's ratio nu
+parameter( 4) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis of th. conductivity
+parameter( 5) =     c11        ,   0.        ,       N/m2                   !  stiffness matrix coefficients (in the case of anisotropic materials)
+parameter( 6) =     c12        ,   0.        ,       N/m2                   !       2D - Rank 4 Tensor (matrix notation)
+parameter( 7) =     c13        ,   0.        ,       N/m2                   !
+parameter( 8) =     c21        ,   0.        ,       N/m2                   !       |sigma_xx|   |C11 C12 C13|   |epsilon_xx|
+parameter( 9) =     c22        ,   0.        ,       N/m2                   !       |sigma_yy| = |C21 C22 C23| . |epsilon_yy|
+parameter(10) =     c23        ,   0.        ,       N/m2                   !       | tau_xy |   |C31 C32 C33|   | gamma_xy |
+parameter(11) =     c31        ,   0.        ,       N/m2                   !
+parameter(12) =     c32        ,   0.        ,       N/m2                   !
+parameter(13) =     c33        ,   0.        ,       N/m2                   !
+parameter(14) =   anisotropic  ,   0.        ,                              !  for the indication of an anisotropic material (default value is 0 so this means that the material is isotropic by default)
+parameter(15) =     BodyFx     ,   0.        ,       N/m3                   !  Body (Volume) force in x-direction
+parameter(16) =     BodyFy     ,   0.        ,       N/m3                   !  Body (Volume) force in y-direction
+parameter(17) =     MassSource ,   0.        ,       1/s2                   !  Source term of the gravity equation
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = PIEZOELECTRIC
+nnat = 3                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !
+eltype(3) = 1                                                               !
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  del-x       , x-displacement          ,   m             !  x-displacement
+fieldquantity(2) =  del-y       , y-displacement          ,   m             !  y-displacement
+fieldquantity(3) =  Potential  , electric Potential       ,   V             !  electric (scalar) potential
+
+numparam = 58
+!                  Name          Default Value       Unit
+parameter( 1) =     rho        ,   1.        ,       kg/m3                  !  material density in kg/m3
+parameter( 2) =     Young      ,   1.        ,       Pa                     !  Young's modulus E
+parameter( 3) =     Poisson    ,   0.3       ,                              !  Poisson's ratio nu
+parameter( 4) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis of th. conductivity
+parameter( 5) =     d          ,   0.001     ,       m                      !  thickness of the plate
+parameter( 6) =     c_p        ,   1000.     ,       J/(kg*K)               !  specific heat
+parameter( 7) =     P          ,   0.        ,       W/m3                   !  Power density (per volume)
+parameter( 8) =     xmapx      ,   1.        ,                              !  Material coordinate system
+parameter( 9) =     xmapy      ,   0.        ,                              !    Transformation matrix relates new coordinate system to the material one:
+parameter(10) =     xmapz      ,   0.        ,                              !    |x'|   | xmapx xmapy xmapz |   |x|
+parameter(11) =     ymapx      ,   0.        ,                              !    |y'| = | ymapx ymapy ymapz | . |y|
+parameter(12) =     ymapy      ,   1.        ,                              !    |z'|   | zmapx zmapy zmapz |   |z|
+parameter(13) =     ymapz      ,   0.        ,                              !
+parameter(14) =     zmapx      ,   0.        ,                              !
+parameter(15) =     zmapy      ,   0.        ,                              !
+parameter(16) =     zmapz      ,   1.        ,                              !
+parameter(17) =     eps11      ,   1.        ,                              !  relative permittivity in the first,
+parameter(18) =     eps22      ,   1.        ,                              !                               second,
+parameter(19) =     eps33      ,   1.        ,                              !                           and third principal axis
+parameter(20) =     C11        ,   0.        ,       N/m2                   !  stiffness matrix coefficients (in the case of anisotropic materials)
+parameter(21) =     C12        ,   0.        ,       N/m2                   !       2D - Rank 4 Tensor (matrix notation)
+parameter(22) =     C13        ,   0.        ,       N/m2                   !       due to symmetry only the diagonal and the upper half of the tensor are to be inserted
+parameter(23) =     C14        ,   0.        ,       N/m2                   !        |sigma_xx|   | C11 C12 C13 C14 C15 C16 ||epsilon_xx|
+parameter(24) =     C15        ,   0.        ,       N/m2                   !        |sigma_yy|   | C21 C22 C23 C24 C25 C26 ||epsilon_yy|
+parameter(25) =     C16        ,   0.        ,       N/m2                   !        |sigma_zz|   | C31 C32 C33 C34 C35 C36 ||epsilon_zz|
+parameter(26) =     C22        ,   0.        ,       N/m2                   !        | tau_yz |   | C41 C42 C43 C44 C45 C46 || gamma_yz |
+parameter(27) =     C23        ,   0.        ,       N/m2                   !        | tau_zx |   | C51 C52 C53 C54 C55 C56 || gamma_zx |
+parameter(28) =     C24        ,   0.        ,       N/m2                   !        | tau_xy |   | C61 C62 C63 C64 C65 C66 || gamma_xy |
+parameter(29) =     C25        ,   0.        ,       N/m2                   !
+parameter(30) =     C26        ,   0.        ,       N/m2                   !
+parameter(31) =     C33        ,   0.        ,       N/m2                   !
+parameter(32) =     C34        ,   0.        ,       N/m2                   !
+parameter(33) =     C35        ,   0.        ,       N/m2                   !
+parameter(34) =     C36        ,   0.        ,       N/m2                   !
+parameter(35) =     C44        ,   0.        ,       N/m2                   !
+parameter(36) =     C45        ,   0.        ,       N/m2                   !
+parameter(37) =     C46        ,   0.        ,       N/m2                   !
+parameter(38) =     C55        ,   0.        ,       N/m2                   !
+parameter(39) =     C56        ,   0.        ,       N/m2                   !
+parameter(40) =     C66        ,   0.        ,       N/m2                   !
+parameter(41) =     E11        ,   0.        ,       As/m2                  !  piezoelectric coefficients: rank-3 tensor
+parameter(42) =     E12        ,   0.        ,       As/m2                  !         in matrix notation
+parameter(43) =     E13        ,   0.        ,       As/m2                  !
+parameter(44) =     E21        ,   0.        ,       As/m2                  !         | E11 E12 E13 |
+parameter(45) =     E21        ,   0.        ,       As/m2                  !         | E21 E22 E23 |
+parameter(46) =     E23        ,   0.        ,       As/m2                  !         | E31 E32 E33 |
+parameter(47) =     E31        ,   0.        ,       As/m2                  !         | E41 E42 E43 |
+parameter(48) =     E32        ,   0.        ,       As/m2                  !         | E51 E52 E53 |
+parameter(49) =     E33        ,   0.        ,       As/m2                  !         | E61 E62 E63 |
+parameter(50) =     E41        ,   0.        ,       As/m2                  !
+parameter(51) =     E42        ,   0.        ,       As/m2                  !
+parameter(52) =     E43        ,   0.        ,       As/m2                  !
+parameter(53) =     E51        ,   0.        ,       As/m2                  !
+parameter(54) =     E52        ,   0.        ,       As/m2                  !
+parameter(55) =     E53        ,   0.        ,       As/m2                  !
+parameter(56) =     E61        ,   0.        ,       As/m2                  !
+parameter(57) =     E62        ,   0.        ,       As/m2                  !
+parameter(58) =     E63        ,   0.        ,       As/m2                  !
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+Physicsmode = PIEZOPYROELEC
+nnat = 4                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !
+eltype(3) = 1                                                               !
+eltype(4) = 1                                                               !
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  del-x       , x-displacement          ,   m             !  x-displacement
+fieldquantity(2) =  del-y       , y-displacement          ,   m             !  y-displacement
+fieldquantity(3) =  Potential  , electric Potential       ,   V             !  electric (scalar) potential
+fieldquantity(4) =  T          , Temperature              ,   K             !  Temperature
+
+numparam = 78
+!                  Name          Default Value       Unit
+parameter( 1) =     rho        ,   1.        ,       kg/m3                  !  material density in kg/m3
+parameter( 2) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis of th. conductivity
+parameter( 3) =     d          ,   0.001     ,       m                      !  thickness of the plate
+parameter( 4) =     c_p        ,   1000.     ,       J/(kg*K)               !  specific heat
+parameter( 5) =     P          ,   0.        ,       W/m3                   !  Power density (per volume)
+parameter( 6) =     Tref       ,   1.        ,       K                      !  Reference temperature
+parameter( 7) =     xmapx      ,   1.        ,                              !  Material coordinate system
+parameter( 8) =     xmapy      ,   0.        ,                              !    Transformation matrix relates new coordinate system to the material one:
+parameter( 9) =     xmapz      ,   0.        ,                              !    |x'|   | xmapx xmapy xmapz |   |x|
+parameter(10) =     ymapx      ,   0.        ,                              !    |y'| = | ymapx ymapy ymapz | . |y|
+parameter(11) =     ymapy      ,   1.        ,                              !    |z'|   | zmapx zmapy zmapz |   |z|
+parameter(12) =     ymapz      ,   0.        ,                              !
+parameter(13) =     zmapx      ,   0.        ,                              !
+parameter(14) =     zmapy      ,   0.        ,                              !
+parameter(15) =     zmapz      ,   1.        ,                              !
+parameter(16) =     lam11      ,   1.        ,       W/m.K                  !  thermal conductivity in the first principle axis
+parameter(17) =     lam22      ,   1.        ,       W/m.K                  !                              second principle axis
+parameter(18) =     lam33      ,   1.        ,       W/m.K                  !                              third principle axis
+parameter(19) =     eps11      ,   1.        ,                              !  relative permittivity in the first,
+parameter(20) =     eps22      ,   1.        ,                              !                               second,
+parameter(21) =     eps33      ,   1.        ,                              !                           and third principal axis
+parameter(22) =     C11        ,   0.        ,       N/m2                   !  stiffness matrix coefficients (in the case of anisotropic materials)
+parameter(23) =     C12        ,   0.        ,       N/m2                   !       2D - Rank 4 Tensor (matrix notation)
+parameter(24) =     C13        ,   0.        ,       N/m2                   !       due to symmetry only the diagonal and the upper half of the tensor are to be inserted
+parameter(25) =     C14        ,   0.        ,       N/m2                   !        |sigma_xx|   | C11 C12 C13 C14 C15 C16 ||epsilon_xx|
+parameter(26) =     C15        ,   0.        ,       N/m2                   !        |sigma_yy|   | C21 C22 C23 C24 C25 C26 ||epsilon_yy|
+parameter(27) =     C16        ,   0.        ,       N/m2                   !        |sigma_zz|   | C31 C32 C33 C34 C35 C36 ||epsilon_zz|
+parameter(28) =     C22        ,   0.        ,       N/m2                   !        | tau_yz |   | C41 C42 C43 C44 C45 C46 || gamma_yz |
+parameter(29) =     C23        ,   0.        ,       N/m2                   !        | tau_zx |   | C51 C52 C53 C54 C55 C56 || gamma_zx |
+parameter(30) =     C24        ,   0.        ,       N/m2                   !        | tau_xy |   | C61 C62 C63 C64 C65 C66 || gamma_xy |
+parameter(31) =     C25        ,   0.        ,       N/m2                   !
+parameter(32) =     C26        ,   0.        ,       N/m2                   !
+parameter(33) =     C33        ,   0.        ,       N/m2                   !
+parameter(34) =     C34        ,   0.        ,       N/m2                   !
+parameter(35) =     C35        ,   0.        ,       N/m2                   !
+parameter(36) =     C36        ,   0.        ,       N/m2                   !
+parameter(37) =     C44        ,   0.        ,       N/m2                   !
+parameter(38) =     C45        ,   0.        ,       N/m2                   !
+parameter(39) =     C46        ,   0.        ,       N/m2                   !
+parameter(40) =     C55        ,   0.        ,       N/m2                   !
+parameter(41) =     C56        ,   0.        ,       N/m2                   !
+parameter(42) =     C66        ,   0.        ,       N/m2                   !
+parameter(43) =     E11        ,   0.        ,       As/m2                  !  piezoelectric coefficients: rank-3 tensor
+parameter(44) =     E12        ,   0.        ,       As/m2                  !         in matrix notation
+parameter(45) =     E13        ,   0.        ,       As/m2                  !
+parameter(46) =     E21        ,   0.        ,       As/m2                  !         | E11 E12 E13 |
+parameter(47) =     E21        ,   0.        ,       As/m2                  !         | E21 E22 E23 |
+parameter(48) =     E23        ,   0.        ,       As/m2                  !         | E31 E32 E33 |
+parameter(49) =     E31        ,   0.        ,       As/m2                  !         | E41 E42 E43 |
+parameter(50) =     E32        ,   0.        ,       As/m2                  !         | E51 E52 E53 |
+parameter(51) =     E33        ,   0.        ,       As/m2                  !         | E61 E62 E63 |
+parameter(52) =     E41        ,   0.        ,       As/m2                  !
+parameter(53) =     E42        ,   0.        ,       As/m2                  !
+parameter(54) =     E43        ,   0.        ,       As/m2                  !
+parameter(55) =     E51        ,   0.        ,       As/m2                  !
+parameter(56) =     E52        ,   0.        ,       As/m2                  !
+parameter(57) =     E53        ,   0.        ,       As/m2                  !
+parameter(58) =     E61        ,   0.        ,       As/m2                  !
+parameter(59) =     E62        ,   0.        ,       As/m2                  !
+parameter(60) =     E63        ,   0.        ,       As/m2                  !
+parameter(61) =     A11        ,   0.        ,       1/K                    !  thermal expansion coefficients
+parameter(62) =     A12        ,   0.        ,       1/K                    !         Rank 2 Tensor
+parameter(63) =     A13        ,   0.        ,       1/K                    !         | A11 A12 A13 |
+parameter(64) =     A21        ,   0.        ,       1/K                    !         | A21 A22 A23 |
+parameter(65) =     A22        ,   0.        ,       1/K                    !         | A31 A32 A33 |
+parameter(66) =     A23        ,   0.        ,       1/K                    !
+parameter(67) =     A31        ,   0.        ,       1/K                    !
+parameter(68) =     A32        ,   0.        ,       1/K                    !
+parameter(69) =     A33        ,   0.        ,       1/K                    !
+parameter(70) =     P1         ,   0.        ,       1/K                    !  Pyroelectric coefficients: Rank-1 tensor | P1 |
+parameter(71) =     P1         ,   0.        ,       1/K                    !                                           | P2 |
+parameter(72) =     P1         ,   0.        ,       1/K                    !                                           | P3 |
+parameter(73) =     pml        ,   0.        ,                              !  is material a PML? (set 0 for false or 1 for true)
+parameter(74) =     vpml1      ,   1.        ,                              !  direction/vector of PML attenuation (default set to x-direction), component1 
+parameter(75) =     vpml2      ,   0.        ,                              !                                                                    component2 
+parameter(76) =     vpml3      ,   0.        ,                              !                                                                    component3
+parameter(77) =     alphapml   ,   0.        ,                              !  PML attenuation parameters
+parameter(78) =     betapml    ,   0.        ,                              !
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+
+
+!============================================================================================================================================
+
+
+
+
+! 3D Physics Modes
+Structure  =  3D		! beginning of section, either 2D or 3D
+
+! ========================================================================================================================================
+
+Physicsmode = 3DELECTROSTATICS
+!Physicsmode = ELECTROSTATICS
+nnat = 1                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+
+!                     Name          descriptor               Unit        
+fieldquantity(1) =  POTENTIAL ,      electric Potential  ,     V 
+numparam = 4
+!                Name          Default Value       Unit
+parameter( 1) =     epsr11     ,   1.        ,                              !  relative permittivity in the first principle axis
+parameter( 2) =     epsr22     ,   1.        ,                              !  relative permittivity in the second principle axis
+parameter( 3) =     epsr33     ,   1.        ,                              !  relative permittivity in the third principle axis
+parameter( 4) =     rho        ,   0.        ,       C/m^3                  !  charge density
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+gx(1) = 	        EX         , electric field strength  ,   V/m           !  negative Gradient, x-component
+gy(1) = 	        EY         , electric field strength  ,   V/m           !  negative Gradient, y-component
+gz(1) = 	        Ez         , electric field strength  ,   V/m           !  negative Gradient, z-component
+g(1)  =             E          , electric field strength  ,   V/m           !  Gradient magnitude ( sqrt(gx^2+gy^2) )
+fx(1) = 	        DX         , electric flux density    ,   As/m2         !  Flux, x-component, -nu*grad(u)|x
+fy(1) = 	        DY         , electric flux density    ,   As/m2         !  Flux, y-component
+fz(1) = 	        DZ         , electric flux density    ,   As/m2         !  Flux, z-component
+f(1)  =             D          , electric flux density    ,   As/m2         !  Flux ( sqrt(fx^2+fy^2) )
+
+! ========================================================================================================================================
+
+Physicsmode = 3DSOLIDMECHANICS
+!Physicsmode = STRAIN-STRESS
+nnat = 3                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(3) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+
+!                     Name          descriptor               Unit        
+fieldquantity(1) =  del-x     ,      x-displacement      ,     m            !  x-displacement
+fieldquantity(2) =  del-y     ,      y-displacement      ,     m            !  y-displacement
+fieldquantity(3) =  del-z     ,      z-displacement      ,     m            !  z-displacement
+numparam = 34
+!                Name          Default Value       Unit
+parameter( 1) =     rho        ,   1.        ,       kg/m3                  !  material density in kg/m3
+parameter( 2) =     Young      ,   1.        ,       Pa                     !  Young's modulus E in Pascal
+parameter( 3) =     nu         ,   0.3       ,                              !  Poisson's ratio nu
+parameter( 4) =     fpa_x      ,   1.        ,       m                      !  x-component of the first principle axis
+parameter( 5) =     fpa_y      ,   0.        ,       m                      !  y-component of the first principle axis
+parameter( 6) =     fpa_z      ,   0.        ,       m                      !  z-component of the first principle axis
+parameter( 7) =     spa_x      ,   0.        ,       m                      !  x-component of the seccond principle axis
+parameter( 8) =     spa_y      ,   1.        ,       m                      !  y-component of the seccond principle axis
+parameter( 9) =     spa_z      ,   0.        ,       m                      !  z-component of the seccond principle axis
+parameter(10) =     C11        ,   0.        ,       N/m2                   !  stiffness matrix coefficients (in the case of anisotropic materials)
+parameter(11) =     C12        ,   0.        ,       N/m2                   !       2D - Rank 4 Tensor (matrix notation)
+parameter(12) =     C13        ,   0.        ,       N/m2                   !       due to symmetry only the diagonal and the upper half of the tensor are to be inserted
+parameter(13) =     C14        ,   0.        ,       N/m2                   !        |sigma_xx|   | C11 C12 C13 C14 C15 C16 ||epsilon_xx|
+parameter(14) =     C15        ,   0.        ,       N/m2                   !        |sigma_yy|   | C21 C22 C23 C24 C25 C26 ||epsilon_yy|
+parameter(15) =     C16        ,   0.        ,       N/m2                   !        |sigma_zz|   | C31 C32 C33 C34 C35 C36 ||epsilon_zz|
+parameter(16) =     C22        ,   0.        ,       N/m2                   !        | tau_yz |   | C41 C42 C43 C44 C45 C46 || gamma_yz |
+parameter(17) =     C23        ,   0.        ,       N/m2                   !        | tau_zx |   | C51 C52 C53 C54 C55 C56 || gamma_zx |
+parameter(18) =     C24        ,   0.        ,       N/m2                   !        | tau_xy |   | C61 C62 C63 C64 C65 C66 || gamma_xy |
+parameter(19) =     C25        ,   0.        ,       N/m2                   !
+parameter(20) =     C26        ,   0.        ,       N/m2                   !
+parameter(21) =     C33        ,   0.        ,       N/m2                   !
+parameter(22) =     C34        ,   0.        ,       N/m2                   !
+parameter(23) =     C35        ,   0.        ,       N/m2                   !
+parameter(24) =     C36        ,   0.        ,       N/m2                   !
+parameter(25) =     C44        ,   0.        ,       N/m2                   !
+parameter(26) =     C45        ,   0.        ,       N/m2                   !
+parameter(27) =     C46        ,   0.        ,       N/m2                   !
+parameter(28) =     C55        ,   0.        ,       N/m2                   !
+parameter(29) =     C56        ,   0.        ,       N/m2                   !
+parameter(30) =     C66        ,   0.        ,       N/m2                   !
+parameter(31) =   anisotropic  ,   0.        ,                              !  for the indication of an anisotropic material (default value is 0 so this means that the material is isotropic by default)
+parameter(32) =    BodyFx      ,   0.        ,       N/m3                   !  Body (Volume) force in x-direction
+parameter(33) =    BodyFy      ,   0.        ,       N/m3                   !  Body (Volume) force in y-direction
+parameter(34) =    BodyFz      ,   0.        ,       N/m3                   !  Body (Volume) force in z-direction
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+! ========================================================================================================================================
+
+Physicsmode = 3DPOISSON
+
+
+nnat = 1                                                                    
+!  Number of Natures
+analysis type =  SS                                                         
+!  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = yes                                                             
+!  no or yes
+eltype(1) = 1                                                               
+!  Element Type (1=Lagrange, 2=Nédélec)
+	
+
+!                     Name          descriptor               Unit        
+
+fieldquantity(1) =  POTENTIAL ,     Electric Potential  ,     V 
+
+numparam = 11
+
+
+!                Name          Default Value       Unit
+
+parameter( 1) =     epsr11     ,   1.        ,                              !  relative permittivity in the first principle axis
+
+parameter( 2) =     epsr22     ,   1.        ,                              !  relative permittivity in the second principle axis
+
+parameter( 3) =     epsr33     ,   1.        ,                              !  relative permittivity in the third principle axis
+
+parameter( 4) =     N_A        ,   0.        ,       m-^3                   !  acceptor doping density
+
+parameter( 5) =     N_D	       ,   0.        ,	     m^-3		    !  donator doping density
+
+parameter( 6) =     T	       ,   300       ,	     K			    !  temperature
+
+parameter( 7) =     mu_n       ,   .1400     ,       m^2/(Vs)	            !  electron mobility (default Si)
+
+parameter( 8) =     mu_p       ,   .0450     ,       m^2/(Vs)	            !  hole mobility (default Si)
+
+parameter( 9) =     ni	       ,   1.e16     ,	     m^-3	            !  intrinsic carrier concentration (default Si)
+
+parameter(10) =     tau_n      ,   5.e-6     ,       s                      !  electron lifetime (for Shotkley-Read-Hall Recomb.) Normaly 100(e-9) s -> 5(e-6) s
+
+parameter(11) =     tau_p      ,   5.e-6     ,       s                      !  holes lifetime (for Shotkley-Read-Hall Recomb.) Normaly 100(e-9) s -> 5(e-6) s
+
+
+!  Derived standard quantities
+!                Name          descriptor                   Unit        
+
+gx(1) = 	    EX         , electric field strength  ,   V/m           !  negative Gradient, x-component
+
+gy(1) = 	    EY         , electric field strength  ,   V/m           !  negative Gradient, y-component
+
+gz(1) = 	    Ez         , electric field strength  ,   V/m           !  negative Gradient, z-component
+
+g(1)  =             E          , electric field strength  ,   V/m           !  Gradient magnitude ( sqrt(gx^2+gy^2+gz^2) )
+! ========================================================================================================================================
+!
+Physicsmode = 3DSEMICONDUCTOR
+nnat = 3                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = yes                                                             !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1																!
+eltype(3) = 1																!
+	
+!                     Name          descriptor               Unit        
+fieldquantity(1) =  POTENTIAL ,     Electric Potential  ,     V 
+fieldquantity(2) =	n ,				Electron Density	,	  m^-3		
+fieldquantity(3) =	p ,				Hole Density		,	  m^-3
+numparam = 11
+!                Name          Default Value       Unit
+parameter( 1) =     epsr11     ,   1.        ,                              !  relative permittivity in the first principle axis
+parameter( 2) =     epsr22     ,   1.        ,                              !  relative permittivity in the second principle axis
+parameter( 3) =     epsr33     ,   1.        ,                              !  relative permittivity in the third principle axis
+parameter( 4) =     N_A        ,   0.        ,       m-^3                   !  acceptor doping density
+parameter( 5) =     N_D		   ,   0.        ,		 m^-3					!  donator doping density
+parameter( 6) =     T_ref	   ,   300		 ,		 K						!  temperature
+parameter( 7) =     mu_n	   ,   .1400	 ,		 m^2/(Vs)				!  electron mobility (default Si)
+parameter( 8) =     mu_p	   ,   .0450	 ,       m^2/(Vs)				!  hole mobility (default Si)
+parameter( 9) =     n_i		   ,   1e16	 ,		 m^-3					!  intrinsic carrier concentration (default Si)
+parameter(10) =     tau_n      ,   5.e-6     ,       s                      !  electron lifetime (for Shotkley-Read-Hall Recomb.) Normaly 100(e-9) s -> 5(e-6) s
+parameter(11) =     tau_p      ,   5.e-6     ,       s                      !  holes lifetime (for Shotkley-Read-Hall Recomb.) Normaly 100(e-9) s -> 5(e-6) s
+
+!  Derived standard quantities
+!                Name          descriptor                   Unit        
+gx(1) = 	    EX         , electric field strength  ,   V/m           !  negative Gradient, x-component
+gy(1) = 	    EY         , electric field strength  ,   V/m           !  negative Gradient, y-component
+gz(1) = 	    Ez         , electric field strength  ,   V/m           !  negative Gradient, z-component
+g(1)  =         E          , electric field strength  ,   V/m           !  Gradient magnitude ( sqrt(gx^2+gy^2+gz^2) )
+fx(2) = 	    JnX        , electron current density ,   A/m^2         !  electron current density, x-component, -q*n*mu_n*grad(u)+mu_n*k*T*grad(n)|x
+fy(2) = 	    JnY        , electron current density ,   A/m^2         !  electron current density, y-component
+fz(2) = 	    JnZ        , electron current density ,   A/m^2         !  electron current density, z-component
+f(2)  =         Jn         , electron current density ,   A/m^2         !  electron current density, ( sqrt(fx^2+fy^2+fz^2) )
+fx(3) = 	    JpX        , hole current density     ,   A/m^2         !  hole current density, x-component, -q*n*mu_p*grad(u)-mu_p*k*T*grad(n)|x
+fy(3) = 	    JpY        , hole current density     ,   A/m^2         !  hole current density, y-component
+fz(3) = 	    JpZ        , hole current density     ,   A/m^2         !  hole current density, z-component
+f(3)  =         Jp         , hole current density     ,   A/m^2         !  hole current density ( sqrt(fx^2+fy^2+fz^2) )
+! Total Current, diffusion and drift currents
+
+!============================================================================================================================================
+
+Physicsmode = 3DTHERMOELECTRIC
+nnat = 2                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1                                                               !
+!                  Name          descriptor                   Unit        
+fieldquantity(1) =  T          , Temperature              ,   K             !  Temperature
+fieldquantity(2) =  Potential  , electric Potential       ,   V             !  electric (scalar) potential
+
+
+numparam = 11
+!                  Name          Default Value       Unit
+parameter( 1) =     angle      ,   0.        ,                              !  angle between the  x-axis and the first principle axis of the material
+parameter( 2) =     angle      ,   0.        ,                              !  angle between the  y-axis and the first principle axis of the material
+
+parameter( 3) =     kappa11    ,   0.02      ,       W/m.K                  !  thermal conductivity in the first principle axis
+parameter( 4) =     kappa22    ,   0.02      ,       W/m.K                  !  thermal conductivity in the second principle axis
+parameter( 5) =     kappa33    ,   0.02      ,       W/m.K                  !  thermal conductivity in the third principle axis
+
+parameter( 6) =     sigma11    ,   1.        ,       S/m                    !  electrical conductivity in the first principle axis
+parameter( 7) =     sigma22    ,   1.        ,       S/m                    !  electrical conductivity in the second principle axis
+parameter( 8) =     sigma33    ,   1.        ,       S/m                    !  electrical conductivity in the third principle axis
+
+parameter( 9) =      seeb11    ,   0.        ,       V/K                    !  thermoelectric coupling Seebeck coefficient in the first principle axis
+parameter(10) =      seeb22     ,   0.        ,       V/K                    !  thermoelectric coupling Seebeck coefficient in the second principle axis
+parameter(11) =     seeb33     ,   0.        ,       V/K                    !  thermoelectric coupling Seebeck coefficient in the third principle axis
+
+
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit        
+fx(1) = 	        Qx         , heat flux                ,   W/m2          !  Heat Flux, x-component
+fy(1) = 	        Qy         , heat flux                ,   W/m2          !  Heat Flux, y-component
+fz(1) = 	        Qz         , heat flux                ,   W/m2          !  Heat Flux, z-component
+f(1)  =             Q          , heat flux                ,   W/m2          !  Heat Flux, magnitude
+
+fx(2) = 	        Jx         , electric current density  ,   A/m2          !  electric current density, x-component
+fy(2) = 	        Jy         , electric current density  ,   A/m2          !  electric current density, y-component
+fz(2) = 	        Jz         , electric current density  ,   A/m2          !  electric current density, z-component
+f(2) = 	            J          , electric current density  ,   A/m2          !  electric current density, magnitude
+
+
+!============================================================================================================================================
+
+
+Physicsmode = 3DMECHANICSSEMICOND
+nnat = 3                                                                    !  Number of Natures
+analysis type =  SS                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = yes                                                             !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+eltype(2) = 1																!
+eltype(3) = 1																!
+	
+!                     Name          descriptor               Unit        
+fieldquantity(1) =  POTENTIAL ,     Electric Potential  ,     V 
+fieldquantity(2) =	n ,				Electron Density	,	  m^-3		
+fieldquantity(3) =	p ,				Hole Density		,	  m^-3
+numparam = 41
+!                Name          Default Value       Unit
+parameter( 1) =     epsr11     ,   1.        ,                              !  relative permittivity in the first principle axis
+parameter( 2) =     epsr22     ,   1.        ,                              !  relative permittivity in the second principle axis
+parameter( 3) =     epsr33     ,   1.        ,                              !  relative permittivity in the third principle axis
+parameter( 4) =     N_A        ,   0.        ,       m-^3                   !  acceptor doping density
+parameter( 5) =     N_D		   ,   0.        ,		 m^-3					!  donator doping density
+parameter( 6) =     T_ref	   ,   300		 ,		 K						!  temperature
+parameter( 7) =     mu_n	   ,   .1400	 ,		 m^2/(Vs)				!  electron mobility (default Si)
+parameter( 8) =     mu_p	   ,   .0450	 ,       m^2/(Vs)				!  hole mobility (default Si)
+parameter( 9) =     n_i		   ,   1e16	 	 ,		 m^-3					!  intrinsic carrier concentration (default Si)
+parameter(10) =     tau_n      ,   5.e-6     ,       s                      !  electron lifetime (for Shotkley-Read-Hall Recomb.) Normaly 100(e-9) s -> 5(e-6) s
+parameter(11) =     tau_p      ,   5.e-6     ,       s                      !  holes lifetime (for Shotkley-Read-Hall Recomb.) Normaly 100(e-9) s -> 5(e-6) s
+parameter(12) =     C11        ,   0.        ,       N/m2                   !  stiffness matrix coefficients (in the case of anisotropic materials)
+parameter(13) =     C12        ,   0.        ,       N/m2                   !       2D - Rank 4 Tensor (matrix notation)
+parameter(14) =     C13        ,   0.        ,       N/m2                   !       due to symmetry only the diagonal and the upper half of the tensor are to be inserted
+parameter(15) =     C14        ,   0.        ,       N/m2                   !        |sigma_xx|   | C11 C12 C13 C14 C15 C16 ||epsilon_xx|
+parameter(16) =     C15        ,   0.        ,       N/m2                   !        |sigma_yy|   | C21 C22 C23 C24 C25 C26 ||epsilon_yy|
+parameter(17) =     C16        ,   0.        ,       N/m2                   !        |sigma_zz|   | C31 C32 C33 C34 C35 C36 ||epsilon_zz|
+parameter(18) =     C22        ,   0.        ,       N/m2                   !        | tau_yz |   | C41 C42 C43 C44 C45 C46 || gamma_yz |
+parameter(19) =     C23        ,   0.        ,       N/m2                   !        | tau_zx |   | C51 C52 C53 C54 C55 C56 || gamma_zx |
+parameter(20) =     C24        ,   0.        ,       N/m2                   !        | tau_xy |   | C61 C62 C63 C64 C65 C66 || gamma_xy |
+parameter(21) =     C25        ,   0.        ,       N/m2                   !
+parameter(22) =     C26        ,   0.        ,       N/m2                   !
+parameter(23) =     C33        ,   0.        ,       N/m2                   !
+parameter(24) =     C34        ,   0.        ,       N/m2                   !
+parameter(25) =     C35        ,   0.        ,       N/m2                   !
+parameter(26) =     C36        ,   0.        ,       N/m2                   !
+parameter(27) =     C44        ,   0.        ,       N/m2                   !
+parameter(28) =     C45        ,   0.        ,       N/m2                   !
+parameter(29) =     C46        ,   0.        ,       N/m2                   !
+parameter(30) =     C55        ,   0.        ,       N/m2                   !
+parameter(31) =     C56        ,   0.        ,       N/m2                   !
+parameter(32) =     C66        ,   0.        ,       m2/N                   !
+parameter(33) =     PI11       ,   0.        ,       m2/N                   ! Piezoresistive coefficents
+parameter(34) =     PI12       ,   0.        ,       m2/N                   !
+parameter(35) =     PI44       ,   0.        ,       m2/N                   !
+parameter(36) =     fpa_x      ,   1.        ,       m                      !  x-component of the first principle axis
+parameter(37) =     fpa_y      ,   0.        ,       m                      !  y-component of the first principle axis
+parameter(38) =     fpa_z      ,   0.        ,       m                      !  z-component of the first principle axis
+parameter(39) =     spa_x      ,   0.        ,       m                      !  x-component of the seccond principle axis
+parameter(40) =     spa_y      ,   1.        ,       m                      !  y-component of the seccond principle axis
+parameter(41) =     spa_z      ,   0.        ,       m                      !  z-component of the seccond principle axis
+
+!  Derived standard quantities
+!                Name          descriptor                   Unit        
+gx(1) = 	    EX         , electric field strength  ,   V/m           !  negative Gradient, x-component
+gy(1) = 	    EY         , electric field strength  ,   V/m           !  negative Gradient, y-component
+gz(1) = 	    Ez         , electric field strength  ,   V/m           !  negative Gradient, z-component
+g(1)  =         E          , electric field strength  ,   V/m           !  Gradient magnitude ( sqrt(gx^2+gy^2+gz^2) )
+fx(2) = 	    JnX        , electron current density ,   A/m^2         !  electron current density, x-component, -q*n*mu_n*grad(u)+mu_n*k*T*grad(n)|x
+fy(2) = 	    JnY        , electron current density ,   A/m^2         !  electron current density, y-component
+fz(2) = 	    JnZ        , electron current density ,   A/m^2         !  electron current density, z-component
+f(2)  =         Jn         , electron current density ,   A/m^2         !  electron current density, ( sqrt(fx^2+fy^2+fz^2) )
+fx(3) = 	    JpX        , hole current density     ,   A/m^2         !  hole current density, x-component, -q*n*mu_p*grad(u)-mu_p*k*T*grad(n)|x
+fy(3) = 	    JpY        , hole current density     ,   A/m^2         !  hole current density, y-component
+fz(3) = 	    JpZ        , hole current density     ,   A/m^2         !  hole current density, z-component
+f(3)  =         Jp         , hole current density     ,   A/m^2         !  hole current density ( sqrt(fx^2+fy^2+fz^2) )
+! Total Current, diffusion and drift currents
+
+!============================================================================================================================================
+Physicsmode = 3DHEATTR
+  ! 3D Steady-state heat conduction
+
+nnat = 1                                                                    !  Number of Natures
+analysis type =  TH                                                         !  SS = steady state,   TH = time-harmonic   or   TR = transient
+nonlinear = no                                                              !  no or yes
+eltype(1) = 1                                                               !  Element Type (1=Lagrange, 2=Nédélec)
+!                  Name          descriptor                   Unit
+fieldquantity(1) =  T          , Temperature              ,   K             !  Temperature
+numparam = 8
+!                  Name          Default Value       Unit
+parameter( 1) =     lam11      ,   1.0       ,       W/m.K                  !  thermal conductivity in the first principle axis
+parameter( 2) =     lam22      ,   1.0       ,       W/m.K                  !  thermal conductivity in the second principle axis
+parameter( 3) =     lam33      ,   1.0       ,       W/m.K                  !  thermal conductivity in the second principle axis
+parameter( 4) =     rho        ,   1.205     ,       kg/m3                  !  material density in kg/m3
+parameter( 5) =     c_p        ,   1000.     ,       J/(kg*K)               !  specific heat
+parameter( 6) =     P          ,   0.        ,       W/m3                   !  Power density (per volume)
+parameter( 7) =     phase      ,   0.        ,                              !  phase of power density
+parameter( 8) =     T_F        ,   293.15    ,       K                      !  temperature of the surrounding fluid (in Kelvin)
+
+
+!  Derived standard quantities
+!                  Name          descriptor                   Unit
+fx(1) =          Qx         , heat flux                ,   W/m2          !  Heat Flux, x-component
+fy(1) =          Qy         , heat flux                ,   W/m2          !  Heat Flux, y-component
+fz(1) =          Qz         , heat flux                ,   W/m2          !  Heat Flux, z-component
+f(1)  =          Q          , heat flux                ,   W/m2          !  Heat Flux, Magnitude
+

@@ -1,0 +1,21 @@
+!--------------------------------------------!
+! FEMsettings.txt                            !
+!       - settings for Polyde's project      !
+!--------------------------------------------!
+! Filename must be ALL CAPS
+MESHFILE = FICH01.UNV
+
+
+PHYSICS_MODE = 3DHEATTR
+
+GEOMETRY_FACTOR = 1.0E-0
+ADAPTION_ERROR = 1.0E-5
+ADAPT_STEPS = 4
+ADAPTION_TYPE = HP_ADAPT
+HP_ALGORITHM = TOP5
+
+ELEMENT_TYPE = SCALAR
+POLYORDER = 1 
+LINSYS_DATA_TYPE = DP
+LINSOLVER_ERROR = 1.0E-10
+MATRIXTYPE = SYMMETRIC

@@ -1,0 +1,57 @@
+# mat
+
+# MATERIAL PROPERTIES
+! set pml to 1 to have a pml in x-direction. other directions
+! can be obtained by setting angle (e.g. PMLy --> angle = 90)
+pml = 0
+
+! angle between the x-axis and the first principle axis
+! used for calculating material tensor
+angle = 0
+
+! thermal conductivity [for HEATTR]
+lam11 = 1                  ! in first principle axis
+lam22 = 1                  ! in second principle axis
+
+! relative permittivity [for TEWAVE, epsr_z for TMWAVE]
+epsr11 = 10                ! in first principle axis
+epsr22 = 10                ! in second principle axis
+epsr_z = 10                ! in z-direction
+tan_delta_eps = 0          ! loss tangent
+
+! relative permeability [for TMWAVE, mur_z for TEWAVE]
+mur11 = 1                  ! in first principle axis
+mur22 = 1                  ! in second principle axis
+mur_z = 1                  ! in z-direction
+tan_delta_mu = 0           ! loss tangent
+
+! material density [for HEATTR]
+rho = 1000
+
+! specific heat capacity [for HEATTR]
+c_p = 1
+
+
+# DESCRIPTION OF THE SOURROUNDING
+! temperature of the surrounding fluid [for HEATTR]
+T_F = 293.15
+
+! convection coefficient on surface [for HEATTR]
+h_o = 0                    ! top surface
+h_u = 0                    ! bottom surface
+
+! thickness of material/plate [for HEATTR]
+d = 0.001
+
+
+# SOURCES
+! power density [for HEATTR]
+p = 0
+
+! current density [for TEWAVE, J_z for TMWAVE]
+J_x = 0                    ! in x-direction
+J_y = 0                    ! in y-direction
+J_z = 0                    ! in z-direction
+
+! phase [for all sources]
+phase = 0

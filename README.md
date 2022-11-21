@@ -39,7 +39,7 @@ specifying the following keywords:
 
 11. MAGNETICVP: Magnetics with moving conductor
 
-12. STATCURRENT: Electrostatics
+12. STATCURRENT: Electrostatics with internal and external current sources
 
 13. TEWAVE: TE-mode wave propogation
 

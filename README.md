@@ -17,13 +17,13 @@ specifying the following keywords:
 
 ## 2D:
 
-1. ACOUSTIC: Acoustic wave propagation.
+1. ACOUSTIC: Acoustic wave propagation
 
-2. ELECTROSTATICS: Electrostatic problem.
+2. ELECTROSTATICS: Electrostatic problem
 
-3. FLOW_PROFILE: Steady-state flow.
+3. FLOW_PROFILE: Steady-state flow
 
-4. FLUIDINCOMPR: Incompressible fluid dynamics
+4. FLUIDINCOMPR: Steady-state flow of incompressible fluids
 
 5. FLUIDELINCOMPR: Coupled electrostatics - Navier Stokes equations
 
@@ -31,19 +31,19 @@ specifying the following keywords:
 
 7. FLUIDELMASSTEP: Coupled electrostatics - Navier Stokes - molar mass concentration - temperature
 
-8. HEATTR: Steady-state heat conduction in solid.
+8. HEATTR: Steady-state heat conduction in solid
 
-9. TRANHEATTRS: Transient heat conduction in solid.
+9. TRANHEATTRS: Transient heat conduction in solid
 
-10. LAPLACE: General Poisson's equation.
+10. LAPLACE: General Poisson's equation
 
-11. MAGNETICVP: Magnetics with moving conductor.
+11. MAGNETICVP: Magnetics with moving conductor
 
-12. STATCURRENT: Stedy-state current
+12. STATCURRENT: Electrostatics
 
-13. TEWAVE: TE-mode wave propogation.
+13. TEWAVE: TE-mode wave propogation
 
-14. TMWAVE: TM-mode wave propogation.
+14. TMWAVE: TM-mode wave propogation
 
 15. THERMOELECTRIC: Thermoelectric problem
 
@@ -63,11 +63,11 @@ specifying the following keywords:
 
 ## 3D
 
-1. 3DHEATTR: Steady-state heat conduction in solid.
+1. 3DHEATTR: Steady-state heat conduction in solid
 
-2. 3DELECTROSTATICS: Electrostatic problem.
+2. 3DELECTROSTATICS: Electrostatic problem
 
-3. 3DSOLIDMECHANICS: Static structural stress/strain.
+3. 3DSOLIDMECHANICS: Static structural stress/strain
 
 4. 3DSEMICONDUCTOR: Electrostatic fields of semiconductors
 

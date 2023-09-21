@@ -3,7 +3,6 @@
 
 add_subdirectory(Geompack)
 add_subdirectory(Json)
-add_subdirectory(Umfpack)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     add_subdirectory(Blas)

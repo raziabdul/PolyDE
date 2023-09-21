@@ -86,7 +86,7 @@ subroutine solve_nonlinear3D()
          call solve_diag_jacobianid(x_0)
          
       case ('PETSCNONLINEAR') !
-         call petscNonlinear(x_0)
+!         call petscNonlinear(x_0)
 
       case default
          print*, 'No nonlinear solver chosen, default nonlinear solver is FIXED POINT'

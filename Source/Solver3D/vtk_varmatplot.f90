@@ -109,6 +109,8 @@ subroutine export2matlab(datatype,val)
     character (len=20)          :: solver
     character (len=50)          :: meshfile
     character (len=200)         :: path
+!
+    external    ::    grglun
 !__
 ! Checks and preparations:
   call getsetting('PROJECTPATH',path)

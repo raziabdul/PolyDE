@@ -79,7 +79,9 @@ subroutine readmatprops(filename, fileformat, ok)
     real(DP)            ::      geoscale
     character(len=200)  ::      path
     character(len=10)   ::      name1, name2
-
+!
+    external            ::      grglun
+!
     
     call getsetting('PROJECTPATH',path)
     call getsetting('GEOMETRY_FACTOR',geoscale)
@@ -281,10 +283,9 @@ subroutine getvarmatprop(matname,paramname,xyzs,mat_value,set)
     real(DP)            :: amvsidel_x, amvsidel_y, amvsidel_z
     real(DP)            :: x_coord, y_coord, z_coord, interp_val, x_dist, y_dist, z_dist, dist
     real(DP)            :: geoscale
-    character(len=24)   :: amvshape, str
+    character(len=24)   :: amvshape
     logical             :: LESS_XMIN, GRTR_XMAX, LESS_YMIN, GRTR_YMAX, LESS_ZMIN, GRTR_ZMAX
     logical             :: CALC_MARGIN, INSIDE_AMV
-    logical             :: ok
 !__
 ! Checks and Definitions:
 

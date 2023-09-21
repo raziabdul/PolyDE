@@ -44,6 +44,9 @@ implicit none
 !*****************************************************************************
 real(DP) :: eps
 !*****************************************************************************
+!
+external    :: inputfluid, readnetin_mn, geteleminfo, getmassmat, presettings, &
+               solver_stokes, solver_incomprs 
 ! input parameters of fluid, ex. theta, timestep, niter
 call inputfluid
 

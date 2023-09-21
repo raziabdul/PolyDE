@@ -61,6 +61,8 @@ real(DP) :: lam(3)
 real (DP), pointer :: xtab(:)
 complex(DP) :: value ! complex in Polyde
 logical :: dbclog, implc
+!
+external    ::    inoutflowbc1
 !***************************************************************************************
 implc = (theta(2) .GT. 0)
 

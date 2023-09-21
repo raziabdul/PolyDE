@@ -60,6 +60,8 @@
     character (len=32) filename
     character (len=10) adap
     character (len=16) :: adapttype
+!
+    external    ::    grglun
 
     nnz = ia(ndof+1)-1    ! number of nonzeros 
     nrows = ndof          ! number of rows

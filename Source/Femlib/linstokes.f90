@@ -71,6 +71,8 @@
       character (len=30) datstr
       character (len=200) path
       logical exist, exist_t, exist_p
+!      
+      external :: grglun
 !
       call getsetting('PROJECTPATH',path)
       inquire (file=path(1:len_trim(path))//'solution',exist=exist)

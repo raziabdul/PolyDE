@@ -48,6 +48,8 @@
       real (DP) :: geoscale
       character (len=200) :: path
 !
+      external    ::    grglun
+!
 !  get project path from user's environment variables
       call getsetting('PROJECTPATH',path)
       call grglun(unitid)

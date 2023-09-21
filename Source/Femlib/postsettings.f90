@@ -363,6 +363,9 @@ end module postsettings
 !  local variables
       integer (I4B) :: i
 !
+      external :: grglun
+!
+
       do i=1,n_f
         if (key .eq. name_f(i)) then
           param_f(i)=value
@@ -395,6 +398,8 @@ end module postsettings
       logical :: exist,search
       character (len=200), save :: postsettingfile
 !
+      external    ::    grglun
+      !
 !  look for file
       if (.not.fileopened) then
         call getsetting('PROJECTPATH',postsettingfile)

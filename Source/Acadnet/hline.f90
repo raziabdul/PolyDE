@@ -1,12 +1,12 @@
-      subroutine hlinexy(i,e,x,y,z,z0,delta,proj,direction,transf)
-      use feminterface, only : sptransformpoly
+      subroutine hline(i,e,x,y,z,zcolor,ncolor,proj,transf)
+      use feminterface, only : locate, sptransformpoly
       use femtypes
       implicit none
-      real (DP) x(:), y(:), z(:), z0, delta
+      real (DP) x(:), y(:), z(:) ,zcolor(:)
       real (DP), optional ::  transf(4,4)
-      integer (I4B) i, e(:,:), direction
+      integer (I4B) i, e(:,:), ncolor
       logical proj
-      intent(in):: i, e, x, y, z, z0, delta, transf, proj
+      intent(in):: i, e, x, y, z, zcolor, ncolor, transf, proj
 !
 !    PolyDE -- a finite element simulation tool
 !    Copyright (C) 2006 Institute for Micro Systems Technology,
@@ -45,60 +45,46 @@
 !     ncolor   Anzahl der Stufen
 !     proj     .true. fuer einen 3D Plot 
 !              .false. fuer einen 2D Plot
-!     direction 1=x 2=y 3=z
 !     transf   Tranformationsmatrix (Homogene Koordinaten)
 !
 !  Zeichnen von Hoehenlinien auf einem Dreieck
 !
-      real (SP) xx(2), yy(2), zz(2), xout(2), yout(2), zout(2)
       real (DP) xl(3), yl(3), zl(3), zmin, zmax, zval, dz(3), dd
-      integer (I4B) iz
-!      
-      external :: pgdraw, pgmove
+      real (SP) xx(2), yy(2), zz(2), xout(2), yout(2), zout(2)
+      integer (I4B) j, icolor, iz
 !
+      external :: pgqci, pgqcr, pgsfs, pgsci, pgscr, pgpoly, pgmove, pgdraw
+
 !  lokale Kopie der Eckkoordinaten und Hoehenwerte
       xl=x(e(:,i))
       yl=y(e(:,i))
       zl=z(e(:,i))
 !
-      select case (direction)
-      case (1)
-        zmax=maxval(xl)
-        zmin=minval(xl)
-      case (2)
-        zmax=maxval(yl)
-        zmin=minval(yl)
-      case (3)
-        zmax=maxval(zl)
-        zmin=minval(zl)
-      end select
+      zmax=maxval(zl)
+      zmin=minval(zl)
 
 !  Erster zu verwendender Hoehenwert feststellen
-       zval=floor((zmin-z0)/delta) * delta
+      icolor=locate(zcolor,zmin)
+      if (icolor.ge.ncolor) return
+      if (icolor.lt.1) icolor=1
+        
 !  Schleife ueber die Hoehenwerte
-      do 
-        zval=zval+delta
+      do j=icolor,ncolor
+        zval=zcolor(j)
         if(zval.gt.zmax) exit
         iz=0
-        select case (direction)
-        case (1)
-          dz(:)=xl(:)-zval
-        case (2)
-          dz(:)=yl(:)-zval
-        case (3)
-          dz(:)=zl(:)-zval
-        end select
+        dz(:)=zl(:)-zval
 !  Schnittpunkte ausrechnen
         if( dz(1)*dz(2) .lt. 0._DP) then
           iz=iz+1
-          dd=dz(1)/(dz(2)-dz(1))
+          dd=dz(1)/(zl(2)-zl(1))
           xx(iz)=sngl(xl(1)+(xl(1)-xl(2))*dd)
           yy(iz)=sngl(yl(1)+(yl(1)-yl(2))*dd)
           zz(iz)=sngl(zl(1)+(zl(1)-zl(2))*dd)
         end if
         if( dz(2)*dz(3) .lt. 0._DP) then                    
           iz=iz+1
-          dd=dz(2)/(dz(3)-dz(2))
+          dd=dz(2)/(zl(3)-zl(2))
           xx(iz)=sngl(xl(2)+(xl(2)-xl(3))*dd)
           yy(iz)=sngl(yl(2)+(yl(2)-yl(3))*dd)
           zz(iz)=sngl(zl(2)+(zl(2)-zl(3))*dd)
@@ -106,7 +92,7 @@
         if (iz .eq. 0) cycle
         if (iz .ne. 2) then
           iz=iz+1
-          dd=dz(3)/(dz(1)-dz(3))
+          dd=dz(3)/(zl(1)-zl(3))
           xx(iz)=sngl(xl(3)+(xl(3)-xl(1))*dd)
           yy(iz)=sngl(yl(3)+(yl(3)-yl(1))*dd)
           zz(iz)=sngl(zl(3)+(zl(3)-zl(1))*dd)
@@ -124,4 +110,4 @@
         end if
       end do
       return
-      end subroutine hlinexy
+      end subroutine hline

@@ -74,6 +74,8 @@
       character (len=200) :: path
       character (len=6) :: delimiter='    -1'
 !
+      external    ::    grglun
+!
 !  get project path from user's environment variables
       call getsetting('PROJECTPATH',path)
       call grglun(unitid)
@@ -275,6 +277,8 @@
       character (len=40) :: domnm, matnm
       character (len=40), allocatable :: tmpmatname(:)
       character (len=40), allocatable :: groupnames(:)
+!
+      external    ::    grglun
 
 !  Variables, defined in globalvariables3d
 !      numn                 number of nodes
@@ -894,6 +898,8 @@
       character (len=:), allocatable :: settingsfile, chrctr, error_msg
       logical                        :: imaginary_part, set(numbc), found, status_ok
       type(json_file)                :: json
+!
+      external    ::    grglun
 !
       call getsetting('PROJECTPATH',path)
       call getsetting('BC_FILENAME',bc_filename)

@@ -1,6 +1,7 @@
       subroutine initialize3D()
       use femtypes
-      use feminterface,       only: zeit, getsetting, readsetting, setprocesspriority, physicsinfo
+      use feminterface,       only: zeit, getsetting, readsetting, setprocesspriority
+      use feminterface,       only: low2hi, physicsinfo
       !use feminterface3D,     only: 
       use globalvariables3D,  only: c0, eltype, nnat, omega, physics, pi, whatsystem
       implicit none

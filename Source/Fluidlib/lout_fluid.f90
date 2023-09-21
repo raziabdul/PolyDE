@@ -48,6 +48,9 @@ integer(I4B) :: unitid, i, j, neldof
 integer(I4B) :: unit2,unit4
 real(DP) :: jd
 character(len=200) :: path
+!      
+external :: grglun
+
 !**********************************************************************************
 !  read in timestamp
 jd = timestamp()

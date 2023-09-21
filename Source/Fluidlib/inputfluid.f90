@@ -43,6 +43,8 @@ integer(I4B) :: unitid !, unit2
 character(len=100):: text
 character(len=200):: path
 logical :: opt1
+!
+external    ::    grglun
 !********************************************************************************
 call getsetting('PROJECTPATH',path)
 call grglun(unitid)

@@ -51,7 +51,10 @@
       logical found, ok, new
       type (node), pointer :: enode, inode, knode, lnode, saveprt
       type (node), pointer :: tmpptr, nextptr, newnode1, newnode2
-!  some of the ideas in the code can be found in:
+!
+      external  ::  pgmove, pgdraw, pgsci, pgscr 
+
+      !  some of the ideas in the code can be found in:
 !  M. Held: FIST: Fast Industrial-Strength Triangulation of Polygons,
 !           Algorithmica 30 (2001) 563--596
 !

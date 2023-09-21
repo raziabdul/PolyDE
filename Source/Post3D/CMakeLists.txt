@@ -15,7 +15,7 @@ add_dependencies(post3d Femlib Femlib3D System)
 
 #Link a target to given libraries 
 #target_link_libraries(Post3D Femlib Femlib3D Pgplot System)
-target_link_libraries(post3d Femlib Femlib3D pgplot System X11 png)
+target_link_libraries(post3d Femlib Femlib3D pgplot System X11)
 
 #Additional compile flags for specifying the runtime library 
 #set_target_properties(Post3D PROPERTIES COMPILE_FLAGS "/warn:all /libs:static /threads /dbglibs")

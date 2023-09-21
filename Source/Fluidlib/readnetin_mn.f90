@@ -61,6 +61,8 @@ integer(I4B) :: dummy, unitid
 real(DP), pointer :: alrbre(:,:), btrbre(:,:), alrbim(:,:), btrbim(:,:)
 real(DP) :: varptemp
 character(len=200) :: path
+!
+external    ::    grglun
 !**********************************************************************************
 call getsetting('PROJECTPATH',path)
 call grglun(unitid)

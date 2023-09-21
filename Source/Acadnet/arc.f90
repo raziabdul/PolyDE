@@ -10,7 +10,7 @@
       logical :: ok
       character (len=txtlen), pointer :: laytxt(:)
       intent (in) :: accur, fakt1, scalfk
-      intent (out) :: xpoint, ypoint, zki, lzrb, zpz, length, ok
+      intent (inout) :: xpoint, ypoint, zki, lzrb, zpz, length, ok ! Change to inout since old intent gives runtime error to OneAPI
       intent (inout) :: laytxt, layrb, layanz, anzzwg, anzknt
 !
 !    $Revision: 1.6 $
@@ -80,7 +80,9 @@
       case(0)
 !  beginn eines neuen Entities => Abschluss
         if (layrb(layer,1).lt.1000) then
-          call putlin(x1,y1,0._DP,0._DP,r,phi1,phi2,.false.,accur,      &
+            print *, 'IN ARC. CALL PUTLIN>>>>'
+
+            call putlin(x1,y1,0._DP,0._DP,r,phi1,phi2,.false.,accur,      &
      &      fakt1,layer,ok,xpoint,ypoint,zki,lzrb,zpz,length,           &
      &      anzzwg,anzknt)
         end if

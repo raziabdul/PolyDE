@@ -1,5 +1,5 @@
       subroutine getxyz(x,y,z)
-      use feminterface, only: readky
+      use feminterface, only: readky, unread
       use femtypes
       implicit none
       real (DP) :: x, y, z

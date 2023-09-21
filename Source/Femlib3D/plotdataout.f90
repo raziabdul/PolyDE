@@ -40,6 +40,8 @@
       character  (len=100) :: headerForm
       character  (len=200) :: path, lineString
       integer (I4B)        :: ierror
+!
+      external    ::    grglun
 
 
 !  get project path from user's environment variables

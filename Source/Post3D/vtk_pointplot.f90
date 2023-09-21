@@ -48,6 +48,8 @@
       character (len=50) :: descriptor
       character (len=12) :: unit
       logical :: opened, found, ok
+!      
+      external :: grglun
 
 !
 !  write data to vtk file
@@ -121,6 +123,8 @@
       character (len=50) :: descriptor
       character (len=12) :: unit
       logical :: opened, found, ok
+!      
+      external :: grglun
 
 !
 !  write data to vtk file
@@ -194,6 +198,8 @@
       character (len=50) :: descriptor
       character (len=12) :: unit
       logical :: opened, found, ok
+!      
+      external :: grglun
 
 !
 !  write data to vtk file

@@ -35,6 +35,8 @@
       integer (I4B) i, unitid, ios
       character (len=200) :: path, plotsize
 !
+      external    ::    grglun
+!
 ! Handle the case of different sizes of arrays xdata and ydata
     if (size(xdata).ne.size(ydata)) then
       print*, '**** Plotting Error: Not possible to handle different xdata and ydata vector sizes'

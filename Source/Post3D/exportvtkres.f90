@@ -28,6 +28,8 @@
       character (len=200):: path
 !!$      complex (DPC) :: u(3), curlu(3)
 !!$      logical :: found
+!      
+      external :: grglun
 !
 !  write data to file data<n>.vtk
     do inat=1,nnat

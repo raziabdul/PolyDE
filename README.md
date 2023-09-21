@@ -4,16 +4,25 @@ PolyDE is not only just another library for finite element computation.
 It is rather a full FE package that can do fully automatic adaptive
 solutions to multi-nature problems, i.e., coupled-physics.
 
-This version of PolyDe is a fork from the original https://sourceforge.net/projects/polyde-fem/
+This version of PolyDe is a fork from the original 
+https://sourceforge.net/projects/polyde-fem/
 It is a sort of "lagging mirror" to the most up-to-date version there. 
 
 This fork is geared towards Linux, and a tighter integration with the latest 
 Intel's oneAPI Fortran compiler and MKL library, and PETSc.
 
+# About this binary release: PolyDE v0.9.2309
+
+This is release v0.9.2309
+This binary release is compiled with Intel OneAPI Version 2023.1.0 on the
+Intel Core i5 CPU.
+
+*Use at your own risk*
+
 # Available physics modes
 
-PolyDE can solve these physical problems in 2D and 3D. The physics mode can be invoked by
-specifying the following keywords: 
+PolyDE can solve these physical problems in 2D and 3D. The physics mode can be 
+invoked by specifying the following keywords: 
 
 ## 2D:
 
@@ -79,9 +88,9 @@ specifying the following keywords:
 
 - A rather recent Linux distro, with libc close to version 2.36
 - Intel's oneAPI collection including MKL
-- PETSc
-- pgplot
 - CMake
+- pgplot
+
 
 # Environment variable
 

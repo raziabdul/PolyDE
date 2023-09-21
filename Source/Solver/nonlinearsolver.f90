@@ -1,5 +1,5 @@
       subroutine nonlinearsolver_newmark(acsr,x_at_t,csrvec,ia,ja,newmark_params,epsgl,resgl)
-      use feminterface, only: getsetting, umfsolver, umfcsolver, pardiso_solver, assemblytrans, amux
+      use feminterface, only: getsetting, pardiso_solver, assemblytrans, amux
       use femtypes
       use globalvariables, only: x, dxdt, d2xdt2, ndof
       implicit none

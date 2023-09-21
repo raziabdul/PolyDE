@@ -1,14 +1,14 @@
       subroutine shapefunctionv3D(lambda, vert, polylo, polyhi,   &
-     &  nff, curl, xsi, cxsi, errcode)
+     &  curl, xsi, cxsi, errcode)
       use feminterface3D, only: shapev3D, curlshapev3D, getgl
       use femtypes
       use globalvariables3D, only: polymaxv
       implicit none
-      integer (I4B) :: polylo, polyhi, nff, errcode
+      integer (I4B) :: polylo, polyhi, errcode
       real (DP) :: vert(3,4), lambda(4)
       real (DP) :: xsi(:,:), cxsi(:,:)
       logical curl
-      intent (in) :: lambda, vert, polylo, polyhi, nff, curl
+      intent (in) :: lambda, vert, polylo, polyhi, curl
       intent (out) :: xsi, cxsi, errcode
 !
 !    $Revision: 1.15 $
@@ -90,14 +90,13 @@
 !
 !
 !
-      subroutine shapev3D(l, gl, polylo, polyhi, vec, eltype )
+      subroutine shapev3D(l, gl, polylo, polyhi, vec)
       Use femtypes
       implicit none
       integer (I4B) :: polylo, polyhi
       real (DP)     :: l(4), gl(4)
       real (DP)     :: vec(:)
-      character (len = *) :: eltype
-      intent (in)   :: l, polylo, polyhi, eltype
+      intent (in)   :: l, polylo, polyhi
       intent (out)  :: vec
 !  
 !  evaluate the shape functions for the corresponding polynomial degree

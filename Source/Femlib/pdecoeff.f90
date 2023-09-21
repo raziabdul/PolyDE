@@ -69,20 +69,15 @@
       real (DP) :: angle, phase, losst, scalar, xys(2)
       real (DP) :: jmx, jmy, gam(2,2), v11, v22
       real (DP) :: Lame1, Lame2
-      real (DP) :: Tref
       real (DP) :: TransfTens(3,3)
 !  3D Tensors
       real (DP) :: CTensNoSym3D(3,3,3,3), ETensNoSym3D(3,3,3), epsrTensNoSym3D(3,3)
       real (DP) :: LamTensNoSym3D(3,3), ATensNoSym3D(3,3), PTensNoSym3D(3)
-      real (DP) :: MTensNoSym3D(3,3), DTensNoSym3D(3,3,3)
+      real (DP) :: MTensNoSym3D(3,3)
 !  2D Tensors
-      real (DP) :: CTensNoSym(2,2,2,2), DTensNoSym(2,2,2), epsrTensNoSym(2,2)
-      real (DP) :: ATensNoSym(2,2), PTensNoSym(2)
-      real (DP) :: MTensNoSym(2,2), ETensNoSym(2,2,2), EtrTensNoSym(2,2,2)
-      !  For gravitational expansion
-      real (DP) :: GTensNoSym(2,2,2)
-      !  Stress-gravity tensor
-      real (DP) :: LTensNoSym(2,2,2)
+      real (DP) :: CTensNoSym(2,2,2,2)
+      real (DP) :: ATensNoSym(2,2)
+      real (DP) :: MTensNoSym(2,2)
       !  For non-linear problems with material parameters that depend on the actual solution
       real (DP) lambda(3)
       complex (DPC) u(nnat), gradu(2,nnat)
@@ -113,7 +108,6 @@
       allocate (list(numparam))
       xys=(/xs,ys/)
       call fetchmatparameters(list,matindex,xys,elem)
-!
 !  possible choices for physics can be:
 !  ACOUSTIC, FLOW_PROFILE, HEATTR, MAGNETICVP, TEWAVE and TMWAVE.
       if ((physics .eq. 'TEWAVE') .or. (physics .eq. 'TMWAVE')) then

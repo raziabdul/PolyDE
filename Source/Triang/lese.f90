@@ -80,6 +80,8 @@
       character (len=200) :: path
       character (len=10000) :: str
       logical :: continuation
+!      
+      external :: grglun
 !
 !  read the geometry information from the file: PROJECTPATH//netin.acd
 !

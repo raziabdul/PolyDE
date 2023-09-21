@@ -317,7 +317,7 @@
       pure subroutine fieldu(elem, lambda, u, gradu)
       use feminterface, only: shapefunction
       use femtypes
-      use globalvariables, only: e, eg, x, ndof, xn, yn, nnat, ep
+      use globalvariables, only: e, eg, x, xn, yn, nnat, ep
       implicit none
       integer (I4B) elem
       real (DP) lambda(3)

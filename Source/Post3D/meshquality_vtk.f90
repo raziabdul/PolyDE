@@ -15,7 +15,8 @@
       integer (I4B), parameter :: criterionselector=2
 !  criterionselector = 1        for GEOMPACK's  eta  quality criterion
 !                    = 2        for minimum dihedral angle (relative to regular tetrahedron)
-
+!
+      external :: grglun
 !
       select case (criterionselector)
 

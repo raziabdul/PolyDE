@@ -2,7 +2,7 @@
      &  txtgeb,zki,zpz,lzrb,length,nohead,xmin,xmax,ymin,ymax,          &
      &  lytabl,accur,scalfk,lplayt,layanz,laytxt,layrb,snapof,txtlen)
       use feminterface, only: getfile, header, tables, blocks, classes
-      use feminterface, only: objects, entity, unsect, reallocate
+      use feminterface, only: objects, entity, unsect, reallocate, sectio
       use femtypes
       implicit none
       integer (I4B) :: anzknt, anzzwg, anzgeb, layanz, snapof, txtlen

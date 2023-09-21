@@ -218,6 +218,9 @@ subroutine idbvip ( md, ndp, xd, yd, zd, nip, xi, yi, zi )
                 p00,p10,p20,p30,p40,p50,p01,p11,p21,p31,p41, &
                 p02,p12,p22,p32,p03,p13,p23,p04,p14,p05
 !
+external    ::    idtang, idlctn, idpdrv, idptip
+
+                !
 !! CHANGE BY M. SCHOBER
 !  In the header it says:
 !    Between the call with MD = 2 or MD = 3 and the preceding call, the
@@ -2072,6 +2075,8 @@ subroutine idsfft ( md, ndp, xd, yd, zd, nxi, nyi, nzi, xi, yi, zi )
   real ( kind = 8 ) yi(nyi)
   real ( kind = 8 ) zd(ndp)
   real ( kind = 8 ) zi(nzi,nyi)
+!
+  external    ::    idgrid
 
   save /idpt/
 
@@ -2079,6 +2084,8 @@ subroutine idsfft ( md, ndp, xd, yd, zd, nxi, nyi, nzi, xi, yi, zi )
                 p00,p10,p20,p30,p40,p50,p01,p11,p21,p31,p41, &
                 p02,p12,p22,p32,p03,p13,p23,p04,p14,p05
 !
+  external    ::    idtang, idlctn, idpdrv, idptip
+                !
 !  Error check.
 !
   if ( md < 1 .or. 3 < md ) then
@@ -2411,6 +2418,8 @@ subroutine idtang ( ndp, xd, yd, nt, ipt, nl, ipl, iwl, iwp, wk )
   real ( kind = 8 ) yd(ndp)
   real ( kind = 8 ) ydmp
 !
+  external    ::    idxchg
+  !
 !  Statement functions
 !
   dsqf(u1,v1,u2,v2) = (u2-u1)**2+(v2-v1)**2

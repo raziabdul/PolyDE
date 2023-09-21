@@ -68,6 +68,8 @@
       character (len=10) time      
       character (len=12) pp
       character (len=40) filename
+!
+      external  ::  grglun 
 
 !   Get the project's path
       call getsetting('PROJECTPATH',path)

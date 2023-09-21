@@ -24,6 +24,8 @@
       integer (I4B) unitid, i, j, inat
       real (DP) jd
       character (len=200) path
+!
+      external    ::    grglun
 !------------------------------------------------------------------------------
 !
       call getsetting('PROJECTPATH',path)

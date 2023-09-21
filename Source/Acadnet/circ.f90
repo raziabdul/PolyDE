@@ -10,7 +10,7 @@
       logical :: ok
       character (len=txtlen), pointer :: laytxt(:)
       intent (in) :: accur, fakt1, scalfk
-      intent (out) :: xpoint, ypoint, zki, lzrb, zpz, length, ok
+      intent (inout) :: xpoint, ypoint, zki, lzrb, zpz, length, ok ! Change to inout since old intent gives runtime error to OneAPI
       intent (inout) :: laytxt, layrb, layanz, anzzwg, anzknt
 !
 !    $Revision: 1.6 $

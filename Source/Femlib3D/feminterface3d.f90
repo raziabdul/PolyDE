@@ -1021,14 +1021,14 @@ end interface
 
 interface
       subroutine shapefunctionv3D(lambda, vert, polylo, polyhi,   &
-     &  nff, curl, xsi, cxsi, errcode)
+     & curl, xsi, cxsi, errcode)
       use femtypes
       implicit none
       integer (I4B) :: polylo, polyhi, nff, errcode
       real (DP) :: vert(3,4), lambda(4)
       real (DP) :: xsi(:,:), cxsi(:,:)
       logical curl
-      intent (in) :: lambda, vert, polylo, polyhi, nff, curl
+      intent (in) :: lambda, vert, polylo, polyhi, curl
       intent (out) :: xsi, cxsi, errcode
       end subroutine shapefunctionv3D
 end interface

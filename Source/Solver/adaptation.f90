@@ -49,6 +49,8 @@
       logical :: ende, ende2, ext, int, ok
       character (len=16) :: adapttype, estimator, algorithm
 !
+      external    :: solver_fluid, solver_stokes 
+!
 !  select how to calculate the residual
       call getsetting('ERROR_ESTIMATOR',estimator)
       estimator = estimator(1:len_trim(estimator))

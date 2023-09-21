@@ -216,8 +216,10 @@ int:  do k = 1, npkt
         end if
 !
 !  get shape function and its curls at location of integration point k
-        call shapefunctionv3D(lambda3d(:,k), vert, polylo, polyhi, nff, .true., xsi, cxsi, errcode)
-!
+!        call shapefunctionv3D(lambda3d(:,k), vert, polylo, polyhi, nff, .true., xsi, cxsi, errcode)
+        call shapefunctionv3D(lambda3d(:,k), vert, polylo, polyhi, .true., xsi, cxsi, errcode)
+
+        !
         vw = volume*weight3d(k)
         nuvw = nu*vw
         alphavw = alpha*vw
@@ -312,7 +314,7 @@ integ:        do k = 1, npkt2D
 !  get shape functions at this location.
 !  for a boundary face, the order of face functions is the order of the volume element,
 !  so polylo and polyhi don't change from element integration above
-                call shapefunctionv3D( lambda(:,k), vert, polylo, polyhi, nffun, .false.,  &
+                call shapefunctionv3D( lambda(:,k), vert, polylo, polyhi, .false.,  &
      &                                 xsi, cxsi, errcode )
 !
 ! fetch the coefficients of the general bc.
@@ -382,7 +384,7 @@ interpolate:do i = 1, intpolpoints
               lam( e2lambda(3,k) ) = 0._DP
               lam( e2lambda(4,k) ) = 0._DP
 !
-              call shapefunctionv3D(lam, vert, polylo, polyhi, nff, .false., xsi, cxsi, errcode)
+              call shapefunctionv3D(lam, vert, polylo, polyhi, .false., xsi, cxsi, errcode)
 !  For Nedelec's element:
 !    #  of functions on an edge = the order of the edge
 !  this is then equal the number of interpolation points, so here the indexing is done 
@@ -494,7 +496,7 @@ integrate:    do k = 1, npkt2D
 !  get shape functions at this location.
 !  for a boundary face, the order of face functions is the order of the volume element,
 !  so polylo and polyhi don't change from element integration above
-                call shapefunctionv3D( lambda(:,k), vert, polylo, polyhi, nffun, .false.,  &
+                call shapefunctionv3D( lambda(:,k), vert, polylo, polyhi, .false.,  &
 &                                      xsi, cxsi, errcode )
 !
 !  get local dof of the face function on face f

@@ -56,6 +56,8 @@
       integer (I4B) i
       logical enwri
       character (len=200) path
+!      
+      external :: grglun
 !
 !  File oeffnen
 

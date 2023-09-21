@@ -24,6 +24,8 @@
       integer (I4B) :: surfnod(3)
       integer (I4B), parameter :: fton(3,4)=reshape((/2,3,4,1,3,4,1,2,4,1,2,3/),(/3,4/))
 !
+      external    ::    order3
+!
       do i = 1,numv  ! volume elements
         do j = 1,4  ! faces
 !  If no neighbour, we got a surface ==> assign nodes of surface

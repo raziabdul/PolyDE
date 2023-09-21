@@ -50,6 +50,8 @@ real(DP), pointer :: residue(:)
 real(DP) :: eps
 character(len=200) :: path
 logical :: converge, implc
+!
+external    ::    grglun
 !***********************************************************************
 ! unkno(nvar,ndof) will be set in main sub. "solver_fluid"
 allocate(unkn1(nvar,ndof)) 

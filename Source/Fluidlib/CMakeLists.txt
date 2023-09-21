@@ -14,7 +14,8 @@ add_dependencies(Fluidlib Femlib Userinterface)
 #Link a target to given libraries 
 target_link_libraries(Fluidlib Femlib Userinterface)
 
-# Additional compile flags for specifying the runtime library 
+#Additional compile flags for specifying the runtime library 
+#set_target_properties(Fluidlib PROPERTIES COMPILE_FLAGS "/libdir:noauto /warn:all /libs:static /threads /dbglibs")
 set_target_properties(Fluidlib PROPERTIES COMPILE_FLAGS "-warn all -threads")
 
 #Install the libraries and/or executables to the CMAKE_INSTALL_PRFIX path

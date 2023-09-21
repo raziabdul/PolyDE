@@ -1,6 +1,6 @@
       program solver
       use feminterface, only: getsetting, initialize, meshinput
-      use feminterface, only: zeit, lin, lout
+      use feminterface, only: adaptation, zeit, lin, lout
       use femtypes
       use globalvariables, only: x, fem_accuracy, physics, omega, pi, &
                                & c0, n, ndof, nnat

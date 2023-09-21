@@ -9,8 +9,8 @@ SET(SRC2
 )
 
 #Add path to modules
-include_directories(${CMAKE_SOURCE_DIR}/build/Source/Femlib)
-include_directories(${CMAKE_SOURCE_DIR}/build/Packages/Json)
+include_directories(${CMAKE_SOURCE_DIR}/Polyde/build/Source/Femlib)
+include_directories(${CMAKE_SOURCE_DIR}/Polyde/build/Packages/Json)
 
 #Add a library to the project using the source files from SRC and SRC2
 add_library(Femlib3D ${SRC} ${SRC2})

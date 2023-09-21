@@ -84,6 +84,7 @@
         if ( .not. ok) snapof=snapof+1
       case('ARC')
 !  arc
+      print *, 'ENTITY. CALL ARC>>>>>'
         call arc(accur,fakt1,scalfk,laytxt,layrb,layanz,                &
      &    xpoint,ypoint,zki,lzrb,zpz,length,anzzwg,anzknt,ok,txtlen)
         if ( .not. ok) snapof=snapof+1

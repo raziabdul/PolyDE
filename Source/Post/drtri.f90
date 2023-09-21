@@ -63,7 +63,8 @@
       real (SP) xpolyout(5), ypolyout(5), zpolyout(5), cr, cg, cb
       logical done, first, all
       parameter (zff=Z'FF')
-
+!
+      external  ::  pgpoly, pgscr
 !  lokale Kopie der Eckkoordinaten und Hoehenwerte
       xl(:)=x(e(:,i))
       yl(:)=y(e(:,i))

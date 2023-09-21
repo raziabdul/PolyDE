@@ -2,7 +2,7 @@
       use feminterface, only: zanfpp, indxf, sortnt, testac, setzwg
       use feminterface, only: extend, outdxf, struc, getsetting
       use feminterface, only: wnetin, rbtxt, gengeb, elmgeb, matgeb
-      use feminterface, only: wpathsetting, zeit
+      use feminterface, only: wpathsetting, zeit, acadini
       use globalvariables, only: nnat
       use femtypes
       implicit none
@@ -29,9 +29,11 @@
       character (len=200) :: path
       character (len=25), pointer :: matname(:)
       character (len=txtlen), pointer :: txtgeb(:), laytxt(:)
+!      
+      external :: grglun, pgend
 !
       call acadini
-!
+
 !  arrays related to key-point
       allocate (xpoint(200), ypoint(200))
 !  arrays related to branches

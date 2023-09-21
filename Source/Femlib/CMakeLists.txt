@@ -10,14 +10,17 @@ SET(SRC2
 	${CMAKE_SOURCE_DIR}/Source/Post/fieldquantity.f90
 	${CMAKE_SOURCE_DIR}/Source/Userinterface/usermaterials.f90
 	${CMAKE_SOURCE_DIR}/Source/Userinterface3D/usermaterials3D.f90
-    ${CMAKE_SOURCE_DIR}/Source/System/Linux/petsc/petscsolver.F90
+	${CMAKE_SOURCE_DIR}/Source/Solver/pardiso_unsym.f90
 )
+#${CMAKE_SOURCE_DIR}/Source/System/Linux/petsc/petscsolver.F90
 
 # Subdirectories that contain PolyDE modules. 
 # Petsc modules are taken care by cmake FindPkgConfig
 include_directories(${CMAKE_SOURCE_DIR}/build/Packages/Json)
 include_directories(${CMAKE_SOURCE_DIR}/build/Source/System)
-
+ 
+# Must have for MKL Pardiso. Use add_library to build the MKL Pardiso interface as a module
+add_library(PardisoFemlibMod ${MKL_INCLUDE}/mkl_pardiso.f90)
 
 # Add a library to the project using the source files from SRC and SRC2 
 add_library(Femlib ${SRC} ${SRC2})
@@ -31,7 +34,9 @@ add_dependencies(Femlib Json)
 
 # Link a target to given libraries
 message(${COMPILE_FLAGS} "  FEMLIB. Check PETsc")
-target_link_libraries(Femlib Json PkgConfig::PETSC)
+#target_link_libraries(Femlib Json PkgConfig::PETSC) # with petsc
+target_link_libraries(Femlib Json)
+
 
 # Install the libraries and/or executables to the CMAKE_INSTALL_PRFIX path
 install(TARGETS Femlib

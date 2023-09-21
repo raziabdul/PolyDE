@@ -48,7 +48,9 @@
       character (len=25) :: meshsmooth, plotdevice
       character (len=25), pointer ::  matname(:), laytxt(:)
       character (len=200) :: path
-!
+      external pgend
+
+      !
 !  explanation of some variables:
 !
 !  Regions are stored in a compact format using three arrays: bzil, bzip, bzi
@@ -122,9 +124,11 @@
       case ('WINDOWS')
         plotdevice='/WZ'
       case ('LINUX')
+! Disable temporarily
+        plotdevice='/NULL'
         plotdevice='/XWINDOW'
       case default
-        plotdevice='/NULL'
+!        plotdevice='/NULL'
       end select
       call zanfpp(plotdevice,xpl,xpu,ypl,ypu,h,bildnr)
 !  draw the structure

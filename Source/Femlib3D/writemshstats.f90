@@ -49,6 +49,8 @@
       character (len=200) :: path
       character (len=20) :: vnumber, filename, form
 !
+      external    ::    grglun
+!
 !  get project path from user's environment variables
       call getsetting('PROJECTPATH',path)
       call grglun(unitid)

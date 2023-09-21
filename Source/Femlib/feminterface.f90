@@ -115,7 +115,7 @@ interface
       logical :: ok
       character (len=txtlen), pointer :: laytxt(:)
       intent (in) :: accur, fakt1, scalfk
-      intent (out) :: xpoint, ypoint, zki, lzrb, zpz, length, ok
+      intent (inout) :: xpoint, ypoint, zki, lzrb, zpz, length, ok
       intent (inout) :: laytxt, layrb, layanz, anzzwg, anzknt
       end subroutine arc
 end interface
@@ -474,7 +474,7 @@ interface
       logical :: ok
       character (len=txtlen), pointer :: laytxt(:)
       intent (in) :: accur, fakt1, scalfk
-      intent (out) :: xpoint, ypoint, zki, lzrb, zpz, length, ok
+      intent (inout) :: xpoint, ypoint, zki, lzrb, zpz, length, ok
       intent (inout) :: laytxt, layrb, layanz, anzzwg, anzknt
       end subroutine circ
 end interface
@@ -3196,9 +3196,8 @@ interface palloc
       end
 end interface
 
-
-interface
-      subroutine pardiso_solver(a,b,x,n,ia,ja)
+interface pardiso_solver
+      subroutine pardiso_solver_DPC(a,b,x,n,ia,ja)
       use femtypes
       implicit none
       complex (DPC), pointer :: a(:), b(:)
@@ -3207,7 +3206,18 @@ interface
       integer (I4B) n
       intent (in) :: n
       intent (out) :: x
-      end subroutine pardiso_solver
+      end
+
+      subroutine  pardiso_solver_DP(a,b,x,n,ia,ja)
+      use femtypes
+      implicit none
+      real (DP), pointer :: a(:), b(:)
+      real (DP) x(:)
+      integer (I4B), pointer :: ia(:),ja(:)
+      integer (I4B) n
+      intent (in) :: n
+      intent (out) :: x
+      end
 end interface
 
 

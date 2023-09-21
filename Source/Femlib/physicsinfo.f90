@@ -63,6 +63,8 @@
       intent (in) :: physics, dim
       intent (out) :: nnat, ok
 !
+      external    ::    getenv, grglun
+!
 !  readphysics - read the physics file and store in module matconstants
 !
 !  input:

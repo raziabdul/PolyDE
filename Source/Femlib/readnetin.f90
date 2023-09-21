@@ -69,6 +69,8 @@
       character (len=50), pointer :: matname(:)
       character (len=200) path
 !
+      external    ::    grglun
+!
       ok=.true.
       call getsetting('PROJECTPATH',path)
       call grglun(unitid)

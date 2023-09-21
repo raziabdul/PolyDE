@@ -50,7 +50,6 @@
       end if
 !  set the projectpath and read the setting file from the new project path 
       call putsetting('PROJECTPATH',path)
-      call readsetting
       call getsetting('PHYSICS_MODE',physics)
 !  get the number of natures
       call physicsinfo(physics,nnat,dim)

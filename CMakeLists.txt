@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.24)
 
 #Enables Fortran support in Cmake
 enable_language(Fortran)
-set(CMAKE_C_COMPILER /opt/intel/oneapi/compiler/2022.2.0/linux/bin/icx)
+set(CMAKE_C_COMPILER /opt/intel/oneapi/compiler/2023.1.0/linux/bin/icx)
 
 get_filename_component(Fortran_COMPILER_NAME ${CMAKE_Fortran_COMPILER} NAME)
 
@@ -58,7 +58,7 @@ IF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 # -fstack-arrays : Adding this option will make the Fortran compiler put all arrays of unknown size and array temporaries onto stack memory.
         SET(CMAKE_EXE_LINKER_FLAGS "-fmax-stack-var-size=3221225472")
 # Sets the DEBUG flags for the Fortran Compiler
-        SET(CMAKE_Fortran_FLAGS_DEBUG "-g -O0 -fcheck=all -Wall -Wextra -Wconversion-extra -Warray-temporaries -Wuse-without-only")
+        SET(CMAKE_Fortran_FLAGS_DEBUG "-g -O0 -fcheck=all -warn all")
         #SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "/DEBUG")
 # Sets the MINSIZEREL flags for the Fortran Compiler (Threaded Debug)
 # To really represent a Min-Size-Release, this configuration should have optimisation level /-Os/, which
@@ -90,17 +90,22 @@ ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 # For oneAPI MKL
   include_directories(/opt/intel/oneapi/mkl/latest/include)
+# OneMKL setup with Intel OneAPI
+# using config mode
+# Looks for MKLConfig.cmake in the path
+find_package(MKL CONFIG REQUIRED PATHS $ENV{MKLROOT})
+message("MKL variables from the file: " ${MKL_RPATH})
 
 # PETSc setup with FindPkgConfig
 # As in the sample in <petsc root>/petsc/share/petsc/CMakeLists.txt
-  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+#  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 # set root of location to find PETSc's pkg-config
-set(PETSC $ENV{PETSC_DIR}/$ENV{PETSC_ARCH})
-set(ENV{PKG_CONFIG_PATH} ${PETSC}/lib/pkgconfig)
-find_package(PkgConfig REQUIRED)
+#set(PETSC $ENV{PETSC_DIR}/$ENV{PETSC_ARCH})
+#set(ENV{PKG_CONFIG_PATH} ${PETSC}/lib/pkgconfig)
+#find_package(PkgConfig REQUIRED)
 # part of PkgConfig
-pkg_search_module(PETSC REQUIRED IMPORTED_TARGET PETSc)
-
+#pkg_search_module(PETSC REQUIRED IMPORTED_TARGET PETSc)
+message("petsc variables: " ${PETSC})
 # End PETSc setup
 
   include_directories(
@@ -124,18 +129,19 @@ pkg_search_module(PETSC REQUIRED IMPORTED_TARGET PETSc)
 # gfortran
         set (CMAKE_Fortran_FLAGS_RELEASE "-funroll-all-loops -fno-f2c -O3")
         set (CMAKE_Fortran_FLAGS_DEBUG   "-fno-f2c -O0 -g")
-    elseif (Fortran_COMPILER_NAME MATCHES "ifort")
+    elseif (Fortran_COMPILER_NAME MATCHES "ifx")
 # ifort
+# option -ip not applicable to ifx
 # Sets the DEBUG flags for the Fortran Compiler
         set(CMAKE_Fortran_FLAGS_DEBUG "-g -O0 -fpe0 -debug full -traceback -qmkl -extend-source -check pointer -check uninit")
 # Sets the MINSIZEREL flags for the Fortran Compiler (Threaded Debug)
-        SET(CMAKE_Fortran_FLAGS_MINSIZEREL "-O0 -fpe0 -debug full -mkl -qopenmp -extend-source -check pointer -check uninit -traceback")
+        SET(CMAKE_Fortran_FLAGS_MINSIZEREL "-O0 -fpe0 -debug full -qmkl -qopenmp -extend-source -check pointer -check uninit -traceback")
 # Sets the RELWITHDEBINFO flags for the Fortran Compiler
-        SET(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -debug full -ip -mkl -qopenmp -xHost -inline-level=2 -extend-source -check pointer -check uninit")
+        SET(CMAKE_Fortran_FLAGS_RELWITHDEBINFO "-O2 -debug full -qmkl -qopenmp -xHost -inline-level=2 -extend-source -check pointer -check uninit")
 # Sets the RELEASE flags for the Fortran Compiler
-        set(CMAKE_Fortran_FLAGS_RELEASE "-O2 -ip -mkl -qopenmp -xHost -inline-level=2 -extend-source -real_size 32")
+        set(CMAKE_Fortran_FLAGS_RELEASE "-O2 -qmkl -qopenmp -xHost -inline-level=2 -extend-source -real-size 32")
 # PolyDE-MTSO-specific Release compiler flags to meet the target systems needs (Intel(R) Xeon(R) CPU E5-2630 v4)
-#        set(CMAKE_Fortran_FLAGS_RELEASE "-O3 -ip -mkl -qopenmp -axcore-avx2 -inline-level=2 -extend-source -real_size 32")
+#        set(CMAKE_Fortran_FLAGS_RELEASE "-O3 -qmkl -qopenmp -axcore-avx2 -inline-level=2 -extend-source -real-size 32")
     elseif (Fortran_COMPILER_NAME MATCHES "g77")
 # g77
         set (CMAKE_Fortran_FLAGS_RELEASE "-funroll-all-loops -fno-f2c -O3")
@@ -165,7 +171,7 @@ ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 # Sets the build type to Release/Debug
 # If uncommented, this is set by the cmake builder (e.g. VSCode cmake plugin)
-set(CMAKE_BUILD_TYPE "Debug")
+set(CMAKE_BUILD_TYPE "Release") # "Debug" or "Release". See other options
 message ("Active configuration: " ${CMAKE_BUILD_TYPE})
 
 #Subdirectories in which other CMakeLists.txt or code files are located

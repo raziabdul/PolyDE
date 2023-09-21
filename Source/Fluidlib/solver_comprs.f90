@@ -45,6 +45,9 @@ real(DP), pointer :: residue(:)
 character(len=200) :: path
 logical :: converge
 !***********************************************************************
+!
+external    :: artivisco, boundary, grglun, rsmooth
+
 ! convergence history file
 call getsetting('PROJECTPATH',path)
 call grglun(unitid)

@@ -1,6 +1,6 @@
       subroutine minmesh(bzi,bzip,bzil,zpz,zpp, meshsize)
       use feminterface, only: genkz, regionlist, intbridges
-      use feminterface, only: earclipper
+      use feminterface, only: earclipper, zeit
       use globalvariables
       use femtypes
       use triangtypes

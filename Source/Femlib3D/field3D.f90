@@ -68,9 +68,12 @@
         else
 
           allocate(xsi(3,nff(inat)), cxsi(3,nff(inat)))
+!          call shapefunctionv3D(lambda, vert, 1, vpelem(inat),          &
+!     &                  nff(inat), .true., xsi, cxsi, errcode)
           call shapefunctionv3D(lambda, vert, 1, vpelem(inat),          &
-     &                  nff(inat), .true., xsi, cxsi, errcode)
-!  compute vector field for solution vector x and the curl
+     &                  .true., xsi, cxsi, errcode)
+
+     !  compute vector field for solution vector x and the curl
           do i=1,nff(inat)
             dof = vgdof(elem,inat)%d(i)
             if (dof .gt. 0 ) then

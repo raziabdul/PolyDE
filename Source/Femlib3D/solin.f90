@@ -29,6 +29,8 @@
       character (len=30) :: datstr
       character (len=200) :: path
       logical :: deadpointer, exist
+!
+      external    ::    grglun
 !------------------------------------------------------------------------------
 !
       call getsetting('PROJECTPATH',path)
@@ -135,6 +137,8 @@
       character (len=30) :: datstr
       character (len=200) :: path, filename
       logical :: deadpointer, exist
+!
+      external    ::    grglun
 !------------------------------------------------------------------------------
 !
       call getsetting('PROJECTPATH',path)

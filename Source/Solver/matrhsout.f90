@@ -50,6 +50,8 @@
 !  local variables
       integer (I4B) unitid, i,jj, ios
       character (len=200) path
+!
+      external    ::    grglun
 
 !   Get the project's path
       call getsetting('PROJECTPATH',path)
@@ -131,6 +133,8 @@
 !  local variables
       integer (I4B) unitid, i,jj, ios
       character (len=200) path
+!
+      external    ::    grglun
 
 !   Get the project's path
       call getsetting('PROJECTPATH',path)

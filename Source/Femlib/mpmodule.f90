@@ -215,7 +215,8 @@
       character (len=200):: path
       complex (DPC) :: fieldval
       logical :: ok, ok1
-!
+!      
+      external :: grglun
 !
       select case (datatype)
       case ('GRID')
@@ -440,7 +441,8 @@
       integer (I4B) :: gridx, gridy, i, ierror=0, num, unitid
       real (DP) :: origin(2)
       character (len=200):: path, comment
-!
+!      
+      external :: grglun
 !
 !  initialize errcode
       errcode = 0

@@ -50,8 +50,9 @@
       character (len=50) :: descriptor
       character (len=12) :: unit
       logical :: opened, found, ok
+!      
+      external :: grglun
 
-!
 !  write data to vtk file
       call getsetting('PROJECTPATH',path)
       call getpostsetting('VTK_FILE',vtk_file)

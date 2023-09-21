@@ -1,6 +1,6 @@
       subroutine transientsolver(acsr,acsrs,acsrd,acsrm,rhs,ia,ja,d2xdt2_at_tminusdt,stepcount,returncount, &
       &          trangtol,tranltollo,tranltolup,currenttime,timestep,timestepreject,epsgl,resgl)
-      use feminterface, only: zeit, getsetting, umfsolver, umfcsolver, pardiso_solver, nonlinearsolver, &
+      use feminterface, only: zeit, getsetting, pardiso_solver, nonlinearsolver, &
                               calctimestep_newmark, calctimestep_runge, amux
       use femtypes
       implicit none

@@ -37,8 +37,7 @@
       return
       end
 
-
-
+      
       subroutine sort_asc_order_DPC(a, ia, ja)
       use femtypes
       use feminterface, only: qsortindex
@@ -344,6 +343,8 @@
       integer(I4B), allocatable :: lastfree(:)
 
 !  Build ia
+      print *, 'LCSR2CSR DP BUGGY?'
+
       n = size(diag)                                        ! number of rows
       lnnz = size(lower)                                    ! number of non-zero entries in lower (or upper) matrix
       nnz = n + 2*lnnz                                      ! number of non-zero entries

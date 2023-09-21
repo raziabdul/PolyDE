@@ -128,7 +128,7 @@
 !
 !  forever loop to draw plots
 !
-!  A drawing is gegnerated in this loop. You can select what to draw in the file
+!  A drawing is generated in this loop. You can select what to draw in the file
 !  POSTsettings.txt, which should reside in your project-folder. There are diffe-
 !  rent commands to choose from:
 !      ARROWPLOT      draws arrowplot for gradients, inplane-field and Poynting

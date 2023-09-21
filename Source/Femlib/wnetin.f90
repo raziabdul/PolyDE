@@ -56,6 +56,8 @@
       character (len=13) :: frm
       character (len=1000) :: fmtstr1, fmtstr2, frmstA
 !
+      external    ::    grglun
+!
       call grglun(unitid1)
 !  Format of file filenm (i.e. netin.acd)
 !    gkz                                                             number of key-points

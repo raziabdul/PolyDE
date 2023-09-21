@@ -29,6 +29,9 @@
 !!$      complex (DPC) :: u(3), curlu(3)
       logical :: opened
 !
+!      
+      external :: grglun
+
 !  write data to vtk file
       call getsetting('PROJECTPATH',path)
       call getpostsetting('VTK_FILE',vtk_file)

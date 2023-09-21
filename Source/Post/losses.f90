@@ -77,7 +77,7 @@
 !
 !
       subroutine total_loss(region,loss)
-      use feminterface, only: flaech, get2Dintegpoints, point_loss
+      use feminterface, only: flaech, get2Dintegpoints, point_loss, low2hi
       use femtypes
       use globalvariables
       use matconstants

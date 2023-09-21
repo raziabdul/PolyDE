@@ -12,7 +12,9 @@
       logical :: opened
       character (len=3):: tmp
       character (len=200):: path, vtk_file
-!
+!      
+      external :: grglun
+
 !  write data to file data<n>.vtk
       call getsetting('PROJECTPATH',path)
       call getpostsetting('VTK_FILE',vtk_file)

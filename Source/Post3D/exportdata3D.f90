@@ -37,6 +37,8 @@
       character (len=200):: path
       complex (DPC) :: u(3), curlu(3)
       logical :: found
+!
+      external :: grglun
 !------------------------------------------------------------------------------
 !  compute p1 and p2 direction
       vec1 = p1 - origin

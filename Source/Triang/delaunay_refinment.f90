@@ -61,6 +61,8 @@
       parameter (isucc=(/2,3,1/))  !  successor
       parameter (ipred=(/3,1,2/))  !  predecessor
 !
+      external    ::    pgeras
+!
 !  The algorithm starts with an initial triangulation of the domain, applying a
 !  successive refinement strategy and using two consecutive steps:
 !  1)  The splitting of encroached segments. 

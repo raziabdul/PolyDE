@@ -57,6 +57,8 @@
       real (DP) jd
       character (len=200) path
 !
+      external    ::    grglun
+!
 !  read in timestamp
       jd = timestamp()
 !  fuer alle Knoten den Funktionswert

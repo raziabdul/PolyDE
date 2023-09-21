@@ -1,9 +1,11 @@
       program post3D
       use feminterface, only: getsetting, getpostsetting, readpostsetting, timestamp, low2hi
-      use feminterface3D, only: field3D, fieldsc3D, initialize3D, readng, solin, findelement3D
+      use feminterface, only: zeit
+      use feminterface3D, only: field3D, fieldsc3D, initialize3D, solin, findelement3D
       use feminterface3D, only: vol2aux, xyz2lam, exportvtk, readunv, pointvalue3D, polyordervtk, meshqualityvtk
       use feminterface3D, only: vtk_scalarpointplot, vtk_vectorpointplot, vtk_tensorpointplot
-      use feminterface3D, only: vtk_scalarcellplot, vtk_vectorcellplot
+      use feminterface3D, only: vtk_scalarcellplot, vtk_vectorcellplot, exportdata3D
+      use feminterface3D, only: exportvtkres, vtk_scalargridplot
       use femtypes
       use globalvariables3D, only : c0, eltype, nnat, nod, numv, omega, pi, vn, vv
       implicit none
@@ -39,6 +41,7 @@
       integer numtime
 !      integer ii, iargc, nn
 !
+      external :: grglun
 !------------------------------------------------------------------------------
 !      nn=iargc()
 !      do ii=1,nn
@@ -67,7 +70,7 @@
 !        call vtkin(ok)                  ! to be implemented
       else
 !  assume netgen mesh file
-        call readng('basis.mesh', ok)
+        print *, 'Only UNV mesh format accepted'
       end if
 
       call zeit(' Reading the Mesh')

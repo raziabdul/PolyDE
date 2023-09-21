@@ -54,6 +54,8 @@
       character (len=24)  :: matvar
       character (len=50)  :: matvar_file, matvar_format
       logical             :: ok, foundparam, ex, firstcall=.true.
+!      
+      external :: grglun
 !__
 ! Checks and Preparations:
 
@@ -221,7 +223,6 @@
       use femtypes
       use feminterface, only: strtok, string2number
       use matconstants, only: ipos, param
-      use physics_quantities, only: dimensions
       implicit none
       integer(I4B) iparam
       character (len=*) str

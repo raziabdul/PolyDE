@@ -46,6 +46,8 @@ real(DP), pointer :: lower(:), upper(:), diag(:), rhs(:), acsr(:)
 real(DP), pointer :: sol(:)
 character(len=25) :: solver, csroption
 logical :: csr, jacobi, matvar
+!
+external    ::    readnetin_mn, timestep_incomprs
 !*****************************************************************************
 ! Get options from FEMsettings.txt
 call getsetting('PHYSICS_MODE',physics)

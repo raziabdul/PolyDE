@@ -42,6 +42,8 @@ integer(I4B) :: i,j,ip
 integer(I4B) :: ios, unitid
 real(DP) :: assume
 character(len=200):: path
+!
+external    ::    grglun
 !******************************************************************************************
 
 if (optcomprs) then

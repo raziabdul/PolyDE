@@ -43,6 +43,9 @@
       parameter (f=0.01745329251994329576923691_SP)
 !  the number of segments on 180 degrees
       parameter (npgs=180)
+!
+      external  ::  pgdraw, pgmove
+
 !  Fehlerabfragen
       if(r1 .lt. 0._SP .or.  r2 .lt. 0._SP) return
       if(r1 .eq. 0._SP .and. r2 .eq. 0._SP) return
@@ -99,6 +102,9 @@
       parameter (f=0.01745329251994329576923691_SP)
 !  the number of segments on 180 degrees
       parameter (npgs=180)
+!
+      external  ::  pgdraw, pgmove
+
 !  error checking
       if(a .lt. 0._SP .or.  b .lt. 0._SP) return
 !      tiny=0

@@ -1,6 +1,6 @@
       subroutine linear_sparse_solve(numdof, lower_DPC, upper_DPC, diag_DPC, rhs_DPC, x, ia, ja, epsgl, resgl)
       use feminterface, only: lcsr2lcsr, lcsrzeroremover, lcsr2csr, lcsr2coo, lcsr2csc, &
-     &  solve2, umfsolver, sort_asc_order, getsetting, petscsolver
+     &  solve2, pardiso_solver, umfsolver, sort_asc_order, getsetting, petscsolver
 
 ! ignore umfcsolver
       use femtypes
@@ -158,7 +158,17 @@
           call lcsr2csc(diag_DPC, lower_DPC, upper_DPC, symmetric, ia, ja, a_aux_DPC, ia_aux, ja_aux)
         end select
 
-     case ('PETSC')
+      case ('PARDISO')
+! PARDISO  requires CSR
+        select case (datatype)
+        case('DP')
+          call lcsr2csr(diag_DP, lower_DP, upper_DP, symmetric, ia, ja, a_aux_DP, ia_aux, ja_aux)
+        case default              ! default is double precision complex
+          call lcsr2csr(diag_DPC, lower_DPC, upper_DPC, symmetric, ia, ja, a_aux_DPC, ia_aux, ja_aux)
+        end select
+! receive a_aux_XX, ia_aux, ja_aux
+
+      case ('PETSC')
          call lcsr2csr(diag_DP, lower_DP, upper_DP, symmetric, ia, ja, a_aux_DP, ia_aux, ja_aux)
 !        receive a_aux_DP, ia_aux, ja_aux
      end select  ! solver
@@ -166,42 +176,6 @@
 !  call the solver
       call getsetting('LINSOLVER_ERROR',eps)
       select case(solver)
-      case ('UMF')
-        select case (datatype)
-        case('DP')
-          call umfsolver(a_aux_DP,rhs_DP,x_DP,numdof,ia_aux,ja_aux)
-          deallocate(rhs_DP)
-          nullify(rhs_DP)
-        case('SP')
-          call umfsolver(a_aux_SP,rhs_SP,x_SP,numdof,ia_aux,ja_aux)
-          deallocate(rhs_SP)
-          nullify(rhs_SP)
-        case default              ! default is double precision complex
-          call umfsolver(a_aux_DPC,rhs_DPC,x_DPC,numdof,ia_aux,ja_aux)
-          deallocate(rhs_DPC)
-          nullify(rhs_DPC)
-        end select
-
-!!$      case ('UMFC')
-!!$        select case (datatype)
-!!$        case('DP')
-!!$          print*,'UMFC is not available in conjunction LINSYS_DATA_TYPE: DP'
-!!$          stop
-!!$!  TO DO:  actually the following is prepared; but does not work correctly
-!!$!          call sort_asc_order(a_aux_DP,ia_aux,ja_aux)
-!!$!          call umfcsolver(a_aux_DP,rhs_DP,x_DP,numdof,ia_aux,ja_aux)
-!!$!          deallocate(ia_aux, ja_aux, rhs_DP)
-!!$!          nullify(ia_aux, ja_aux, rhs_DP)
-!!$        case('SP')
-!!$          print*,'UMFC is not available in conjunction LINSYS_DATA_TYPE: SP'
-!!$          stop
-!!$        case default              ! default is double precision complex
-!!$          call sort_asc_order(a_aux_DPC,ia_aux,ja_aux)
-!!$          call umfcsolver(a_aux_DPC,rhs_DPC,x_DPC,numdof,ia_aux,ja_aux)
-!!$          deallocate(ia_aux, ja_aux, rhs_DPC)
-!!$          nullify(ia_aux, ja_aux, rhs_DPC)
-!!$        end select
-
       case ('SSORCG')
         select case (datatype)
         case('DP')
@@ -271,10 +245,17 @@
         end select ! case
 !a_aux_DP, ia_aux, ja_aux
 
-!      select case ('PARDISO')
-!        call pardiso_solver
+      case ('PARDISO')
+        select case (datatype)
+        case('DP')
+          call pardiso_solver( a_aux_DP, rhs_DP, x_DP, numdof, ia_aux, ja_aux )
+        case default              ! default is double precision complex
+          call pardiso_solver( a_aux_DPC, rhs_DPC, x_DPC, numdof, ia_aux, ja_aux )
+        end select
+      ! to pass a_aux_DPC, ia_aux, ja_aux
+  
       case default
-        print*,' no such solver: ', solver,' use SSORCG, UMFC, or UMF'
+        print*,' no such solver: ', solver,' use PARDISO'
       end select
 
 !  copy back to complex

@@ -12,6 +12,8 @@
       integer (I4B) :: ierror, unitid
       character (len=200):: path
 !
+      external    ::    grglun
+!
 
 !  write data to file elements.vtk
       call grglun(unitid)

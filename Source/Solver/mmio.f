@@ -97,6 +97,8 @@ c
       character tmp1*1024
       character tmp2*2
 c
+      external  ::  getwd, countwd, lowerc 
+
 c Read header line and check validity:
 c
       read (iunit,end=1000,fmt=5) tmp1
@@ -394,6 +396,8 @@ c
       character symm*19
       character tmp1*1024
       character tmp2*2
+c
+      external  ::  getwd, countwd, lowerc 
 c
 c Read header line and check validity:
 c
@@ -814,6 +818,8 @@ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       character*(*) string
       integer slen, start, next, wordlength, count
       character tmp2*2
+c
+       external  ::  getwd 
 
       count = 0
       next = 1

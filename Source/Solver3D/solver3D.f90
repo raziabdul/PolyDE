@@ -1,6 +1,6 @@
       program solver3D
       use feminterface, only: getsetting, zeit, low2hi
-      use feminterface3d, only: initialize3D, readng, solout, readunv, solin_aux
+      use feminterface3d, only: initialize3D, solout, readunv, solin_aux
       use feminterface3d, only: solve_adapt3D
       use femtypes
       use globalvariables3D, only : c0, eltype, nnat, numv, omega, pi, vp
@@ -86,7 +86,7 @@
 !      else if(  .eq. 'VTK) then
 !        call vtkin(ok)                  ! to be implemented
       else
-        call readng(meshfile, ok)
+        print *, 'Only UNV mesh format accepted'
       end if
 !      do i=1,numv
 !        print*,'reading vn(:,',i,') = ',vn(:,i)

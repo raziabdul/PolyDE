@@ -19,7 +19,7 @@ else()
 endif()
 
 #Add a dependency between targets (target-name depend-target1 depend-target2 ...)
-# Remove Pgplot. Not needed on Linux since pre-installed in /usr/lib64 
+# Remove Pgplot. Not needed on Linux since pre-installed on /usr/lib64 
 add_dependencies(post Femlib System Userinterface)
 
 #Link a target to given libraries 

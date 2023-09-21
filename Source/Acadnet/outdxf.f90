@@ -37,6 +37,8 @@
       real (DP) :: radius,rad1,rad2
       character (len=200) :: path
       real (DP), parameter ::  pid180=.017453292519943295769237_DP
+!      
+      external :: grglun
 !
 !  Only the section ENTITIES is written
 !

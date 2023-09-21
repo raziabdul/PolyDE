@@ -56,6 +56,8 @@
       integer (I4B) unitid, ios
       integer (I4B) i
       character (len=200) path
+!      
+      external :: grglun
 !
       jd = timestamp()
       enwri=.false.

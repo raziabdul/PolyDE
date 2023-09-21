@@ -114,7 +114,7 @@ function append_vec_int(array,values)
 !
 !
 
-    integer (I4B) :: num_arrow, num_arcol, num_valrow, num_valcol
+    integer (I4B) :: num_arrow, num_valrow
     
     num_arrow = SIZE(array(:))
     num_valrow = SIZE(values(:))

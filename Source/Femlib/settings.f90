@@ -36,7 +36,7 @@ module femsettings
 !  _f  prameters of float type
 !
 !  number of the parameters of each type
-      integer (I4B), parameter :: n_c=37, n_i=11, n_f=32
+      integer (I4B), parameter :: n_c=37, n_i=12, n_f=37
 !  parameter values (initial settings)
       character (len=200)       :: param_c(n_c)=(/                      &
      &                                            'HP_ADAPT',           &  !  ADAPTION_TYPE
@@ -44,7 +44,7 @@ module femsettings
      &                                            'NEDELEC',            &  !  ELEMENT_TYPE
      &                                            'FULLRESIDUAL',       &  !  ERROR_ESTIMATOR
      &                                            'KEYPOINT',           &  !  HP_ALGORITHM
-     &                                            'SSORCG',             &  !  LINSOLVERTYPE
+     &                                            'PARDISO',            &  !  LINSOLVERTYPE
      &                                            'BINARY',             &  !  MATRIXOUTPUT
      &                                            'NONSYMMETRIC',       &  !  MATRIXTYPE
      &                                            'BASIS.UNV',          &  !  MESHFILE
@@ -88,7 +88,8 @@ module femsettings
      &                                            1,                    &  !  HPF8R_ORDER
      &                                            1000,                 &  !  MAX_ANDERSON_ITER
      &                                            1000,                 &  !  MAX_FIXPOINT_ITER
-     &                                            1                     &  !  FP_BEFORE_ANDER
+     &                                            1,                    &  !  FP_BEFORE_ANDER
+     &                                            2                     &  !  LINSOLVER_PEAKMEM_GB
      &                                               /)
       real (DP)                 :: param_f(n_f)=(/                      &
      &                                            1._DP,                &  !   1  ADAPTION_ERROR
@@ -122,7 +123,12 @@ module femsettings
      &                                            0._DP,                &  !  29  AMV_SIDE_Y
      &                                            0._DP,                &  !  30  AMV_SIDE_Z
      &                                           -1._DP,                &  !  31  AMV_MARGIN_SIZE
-     &                                            -9999._DP             &  !  32  WAVELENGTH
+     &                                            -9999._DP,            &  !  32  WAVELENGTH
+     &                                            0._DP,                &  !  33  USERPARAM1
+     &                                            0._DP,                &  !  34  USERPARAM2
+     &                                            0._DP,                &  !  35  USERPARAM3
+     &                                            0._DP,                &  !  36  USERPARAM4
+     &                                            0._DP                 &  !  37  USERPARAM5
      &                                               /)
 !
 !  Names of the parameters,                         alphabetic odering
@@ -176,7 +182,8 @@ module femsettings
      &                                             'HPF8R_ORDER',       &
      &                                             'MAX_ANDERSON_ITER', &
      &                                             'MAX_FIXPOINT_ITER', &
-     &                                             'FP_BEFORE_ANDER'    &
+     &                                             'FP_BEFORE_ANDER',    &
+     &                                             'LINSOLVER_PEAKMEM_GB'    &
      &                                               /)
       character (len=24), parameter :: name_f(n_f)=(/                   &
      &                                             'ADAPTION_ERROR',    &  !   1
@@ -210,7 +217,12 @@ module femsettings
      &                                             'AMV_SIDE_Y',        &  !  29
      &                                             'AMV_SIDE_Z',        &  !  30
      &                                             'AMV_MARGIN_SIZE',   &  !  31
-     &                                             'WAVELENGTH'         &  !  32
+     &                                             'WAVELENGTH',        &  !  32
+     &                                             'USERPARAM1',        &  !  33
+     &                                             'USERPARAM2',        &  !  34
+     &                                             'USERPARAM3',        &  !  35
+     &                                             'USERPARAM4',        &  !  36
+     &                                             'USERPARAM5'         &  !  37
      &                                               /)
 !
 !  readstd will be set to true, when the file was read
@@ -450,6 +462,7 @@ end module femsettings
 !  Alternatively start reading Femsettings.txt
 !
       use feminterface, only: low2hi, string2number, getsetting, getsettingfile
+      use feminterface, only: read_femsettingsfile
       use femsettings, only: param_c, param_i, param_f, n_c, n_f, n_i, readstd,&
                            & name_c, name_i, name_f
       use json_module
@@ -457,62 +470,13 @@ end module femsettings
 
       implicit none
 !  local variables
-      integer (I4B)                  :: i, intgr
-      real    (DP)                   :: rl
       character (len=200)            :: path
-      character (len=:), allocatable :: projectname, settingsfile, chrctr, error_msg
-      type(json_file)    :: json
-      logical            :: found, status_ok, json_present
+      logical            ::      json_present
       readstd=.true.
       json_present = .false.  ! was .true.
 !__
 ! 1) Get Projectpath, Load Project File
     call getsettingfile(path)
-!!$!- Get Project Path
-!!$    call json%load_file(filename = path(1:len_trim(path)))
-!!$    if (json_failed()) then
-!!$      call json_check_for_errors(status_ok, error_msg)
-!!$      print*,'***ERROR reading json:', error_msg
-!!$      json_present = .false.
-!!$    else
-!!$      call json%get('projectName',projectname,found)
-!!$        if (.not.found) print*,'***ERROR reading json: /"projectName/" not found', error_msg
-!!$      call json%get('projectPathInfo.'//projectname,settingsfile,found)
-!!$        if (.not.found) print*,'***ERROR reading json: /"projectPathInfo.projectFile/" not found', error_msg
-!!$    end if
-!!$    call json%destroy()
-!!$!- Load Project File
-!!$    call json%load_file(filename = settingsfile )
-!!$    if (json_failed()) then
-!!$      call json_check_for_errors(status_ok, error_msg)
-!!$      print*,'***ERROR reading json:', error_msg
-!!$      ! No json file found: read femsettings.txt file
-!!$      path = settingsfile(1:index( settingsfile, "/", .true. ))
-!!$      call read_femsettingsfile(path)
-!!$    else
-!!$!__
-!!$! 2) Load Character-type Settings
-!!$      
-!!$      do i = 1, size(name_c)
-!!$        call json%get('technicalInfo.FEMSettings.'//name_c(i), chrctr, found)
-!!$        if (found) param_c(i) = chrctr(1:len_trim(chrctr))
-!!$      end do
-!!$!__
-!!$! 3) Load Integer-type Settings
-!!$
-!!$      do i = 1, size(name_i)
-!!$        call json%get('technicalInfo.FEMSettings.'//name_i(i), param_i(i), found)
-!!$      end do
-!!$!__
-!!$! 4) Load Float-type Settings
-!!$
-!!$      do i = 1, size(name_f)
-!!$        call json%get('technicalInfo.FEMSettings.'//name_f(i), param_f(i), found)
-!!$      end do
-!!$!-
-!!$    end if
-!!$    call json%destroy()
-    
 ! 5) If no json file was found, read FEMSettings.txt
     if (json_present .eqv. .false.) then
       call read_femsettingsfile(path)
@@ -537,17 +501,14 @@ end module femsettings
       logical :: exist, search
       character (len=200) :: str, name
       character (len=200) :: settingfile
+!      
+      external :: grglun
 !
       readstd=.true.
 
-! Current version
-!      settingfile = path(1:len_trim(path))//'FEMSettings.txt'
-!
-! Previous
-!  look for file
-      call getsettingfile(settingfile)
-      settingfile = settingfile(1:len_trim(settingfile))
-
+! path already in complete file path name in linux
+      settingfile = path
+! read content of file
       call grglun(unitid)
       inquire (file=settingfile,exist=exist)
       if (.not. exist) then
@@ -740,7 +701,7 @@ end module femsettings
 !
 !  Replace the project path in the FEMsetting.txt file with the actual one
 !
-      use feminterface, only: low2hi, getsettingfile
+      use feminterface, only: low2hi, getsettingfile, writsetting
       use femsettings 
       use femtypes
       implicit none
@@ -750,8 +711,12 @@ end module femsettings
       character (len=250) :: str
       character (len=200) :: settingfile
       logical :: exist
+!      
+      external :: grglun
 !
 !  look for file
+      print *, 'IN WPATHSETTING'
+
       call getsettingfile(settingfile)
       settingfile = settingfile(1:len_trim(settingfile))
 
@@ -843,7 +808,11 @@ end module femsettings
       character (len=200) :: str,strp
       character (len=200) :: settingfile      
       logical :: opened
+!      
+      external :: grglun
 !
+      print *, 'IN WRITSETTING'
+
       call getsettingfile(settingfile)
       settingfile = settingfile(1:len_trim(settingfile))
       inquire (file=settingfile,opened=opened)
